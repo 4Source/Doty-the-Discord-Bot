@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Integration } = require('discord.js');
+const { Integration, MessageEmbed } = require('discord.js');
 
 const data = 
 
@@ -24,24 +24,42 @@ module.exports = {
     
     async execute(interaction) {
         const sub = interaction.options.getSubcommand();
+        const embed = new MessageEmbed()
+                    .setColor('BLUE')
+                    .setTimestamp();
 
         switch(sub){
             case 'user':
                 const user = interaction.options.getUser('target');
                 
                 if(user) {
-                    await interaction.reply({ content: `Username: ${user.tag}\nID: ${interaction.user.id}`, ephemeral: true });
+                    embed.setTitle(user.tag)
+                    .setThumbnail(user.avatarURL(true))
+                    .addField('User ID', `${user.id}`, false)
+                    .addField('User on Discord since', `${user.createdAt}`, false);
                 } 
                 else {
-                    await interaction.reply({ content: `Your tag: ${interaction.user.tag}\nID: ${interaction.user.id}`, ephemeral: true });
+                    embed.setTitle(interaction.user.tag)
+                    .setThumbnail(interaction.user.avatarURL(true))
+                    .addField('User ID', interaction.user.id, false)
+                    .addField('User on Discord since', `${interaction.user.createdAt}`, false);
                 }
                 break;
             case 'server':
-                await interaction.reply({ content: `Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`, ephemeral: true });
+                description = interaction.guild.description;
+                if(description == null) description = '';
+                embed.setTitle(interaction.guild.name)
+                    .setThumbnail(interaction.guild.bannerURL())
+                    .setDescription(`${description}`)
+                    .addField('Total members:', `${interaction.guild.memberCount}`, false)
+                    .addField('Server Created at', `${interaction.guild.createdAt}`, false);
                 break;
-            case 'ping':
-                await interaction.reply({ content: `Ping: ${interaction.client.ws.ping} ms.`, ephemeral: true });
+            case 'bot':
+                embed.setTitle('Doty')
+                    .setDescription('Doty is an Bot for Discord.')
+                    .addField('Latency', `Ping: ${interaction.client.ws.ping} ms.`, false);
                 break;
         }
+        await interaction.reply({ embeds: [embed], ephemeral: true });
     }
 };
