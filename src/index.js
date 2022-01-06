@@ -5,7 +5,25 @@ const { token } = require("../data/config.json");
 console.log("Starting...");
 //Create Client Instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+client.slashCommands = new Collection();
 client.commands = new Collection();
+
+//Load SlashCommands
+scomCount = 0;
+const scomdir = './src/slashCommands';
+fs.readdirSync(scomdir)
+    .filter(file => file.endsWith('.js'))
+    .forEach(file => {
+        const command = require(`./slashCommands/${file}`);
+        if(command.data.name){
+            console.log(`Loaded SlashCommand: '${command.data.name}' from ${scomdir}/${file}`);
+            client.slashCommands.set(command.data.name, command);
+            scomCount++;
+        }
+    });
+fs.readdir(scomdir, (err, files) => {
+    console.log(`SlashCommands Loaded: (${scomCount}/${files.length})`);
+});
 
 //Load Commands
 comCount = 0;
@@ -14,16 +32,15 @@ fs.readdirSync(comdir)
     .filter(file => file.endsWith('.js'))
     .forEach(file => {
         const command = require(`./commands/${file}`);
-        if(command.data.name){
-            console.log(`Loaded Command: '${command.data.name}' from ${comdir}/${file}`);
-            client.commands.set(command.data.name, command);
+        if(command.name) {
+            console.log(`Loaded Command: '${command.name}' from ${comdir}/${file}`);
+            client.commands.set(command.name, command);
             comCount++;
         }
-});
+    });
 fs.readdir(comdir, (err, files) => {
     console.log(`Commands Loaded: (${comCount}/${files.length})`);
-  });
-
+});
 
 
 //Load Events
@@ -42,10 +59,10 @@ fs.readdirSync(evdir)
             }
             evCount++;
         }
-});
+    });
 fs.readdir(evdir, (err, files) => {
     console.log(`Events Loaded: (${evCount}/${files.length})`);
-  });
+});
 
 //Discord Token
 client.login(token);
