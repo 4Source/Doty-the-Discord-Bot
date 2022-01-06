@@ -4,7 +4,7 @@ const { token } = require("../data/config.json");
 
 console.log("Starting...");
 //Create Client Instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 client.commands = new Collection();
 
 //Load Commands
