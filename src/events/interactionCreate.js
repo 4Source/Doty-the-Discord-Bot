@@ -14,7 +14,7 @@ module.exports = {
 
         try {
             await command.execute(interaction);
-            console.log(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] Successfull!`);
+            console.log(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] Successfully Executed Command!`);
         } catch (error) {
             console.error(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] ${error}`);
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
