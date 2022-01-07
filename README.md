@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/4Source/Doty-the-Discord-Bot?style=flat-square)](https://github.com/4Source/Doty-the-Discord-Bot/blob/master/LICENSE) 
+[![License](https://img.shields.io/github/license/4Source/Doty-the-Discord-Bot?color=gree&style=flat-square)](https://github.com/4Source/Doty-the-Discord-Bot/blob/master/LICENSE) 
 [![Recommended Release](https://img.shields.io/github/v/release/4Source/Doty-the-Discord-Bot?color=gree&label=recommended&sort=semver&style=flat-square)](https://github.com/4Source/Doty-the-Discord-Bot/releases/latest)
 [![Latest Release](https://img.shields.io/github/v/release/4Source/Doty-the-Discord-Bot?include_prereleases&label=latest&sort=semver&style=flat-square)](https://github.com/4Source/Doty-the-Discord-Bot/releases)
 
