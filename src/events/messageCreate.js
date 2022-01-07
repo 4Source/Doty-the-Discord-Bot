@@ -18,8 +18,6 @@ module.exports = {
 			//Split in Args
 			message.content.split(/ +/)
 				.forEach(arg => {
-				console.log(arg);
-
 				//Search in Commands Collection for Command
 				const trigger = message.client.triggers.find(cmd => cmd.name == arg);
 
