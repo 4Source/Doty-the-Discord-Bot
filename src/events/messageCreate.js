@@ -12,8 +12,26 @@ module.exports = {
         //Log
 		console.log(`[messageCreate][#${message.channel.name}][${message.author.tag}][${id}] Triggerd with: "${message.content}"`);
 
+		triggered = false;
 		//Check if Command with Prefix
-		if(!message.content.startsWith(prefix)) return;
+		if(!message.content.startsWith(prefix)) {
+			//Split in Args
+			message.content.split(/ +/)
+				.forEach(arg => {
+				console.log(arg);
+
+				//Search in Commands Collection for Command
+				const trigger = message.client.triggers.find(cmd => cmd.name == arg);
+
+				//Check ifnot Valid Trigger
+				if(!trigger) return;
+				trigger.execute(message, message.client);
+				triggered = true;
+			});
+		}
+
+		//If triggered return
+		if(triggered) return;
 
 		//Split in Args
 		const args = message.content.substring(prefix.length).split(/ +/);

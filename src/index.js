@@ -7,51 +7,70 @@ console.log("Starting...");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 client.slashCommands = new Collection();
 client.commands = new Collection();
+client.triggers = new Collection();
+
+const predir ='./src';
 
 //Load SlashCommands
 scomCount = 0;
-const scomdir = './src/slashCommands';
-fs.readdirSync(scomdir)
+const scomdir = '/slashCommands';
+fs.readdirSync(predir + scomdir)
     .filter(file => file.endsWith('.js'))
     .forEach(file => {
-        const command = require(`./slashCommands/${file}`);
+        const command = require(`.${scomdir}/${file}`);
         if(command.data.name){
-            console.log(`Loaded SlashCommand: '${command.data.name}' from ${scomdir}/${file}`);
+            console.log(`Loaded SlashCommand: '${command.data.name}' from ${predir + scomdir}/${file}`);
             client.slashCommands.set(command.data.name, command);
             scomCount++;
         }
     });
-fs.readdir(scomdir, (err, files) => {
+fs.readdir(predir + scomdir, (err, files) => {
     console.log(`SlashCommands Loaded: (${scomCount}/${files.length})`);
 });
 
 //Load Commands
 comCount = 0;
-const comdir = './src/commands';
-fs.readdirSync(comdir)
+const comdir = '/commands';
+fs.readdirSync(predir + comdir)
     .filter(file => file.endsWith('.js'))
     .forEach(file => {
-        const command = require(`./commands/${file}`);
+        const command = require(`.${comdir}/${file}`);
         if(command.name) {
-            console.log(`Loaded Command: '${command.name}' from ${comdir}/${file}`);
+            console.log(`Loaded Command: '${command.name}' from ${predir + comdir}/${file}`);
             client.commands.set(command.name, command);
             comCount++;
         }
     });
-fs.readdir(comdir, (err, files) => {
+fs.readdir(predir + comdir, (err, files) => {
     console.log(`Commands Loaded: (${comCount}/${files.length})`);
 });
 
+//Load Triggers
+trigCount = 0;
+const trigdir = '/triggers';
+fs.readdirSync(predir + trigdir)
+    .filter(file => file.endsWith('.js'))
+    .forEach(file => {
+        const trigger = require(`.${trigdir}/${file}`);
+        if(trigger.name) {
+            console.log(`Loaded Trigger: '${trigger.name}' from ${predir + trigdir}/${file}`);
+            client.triggers.set(trigger.name, trigger);
+            trigCount++;
+        }
+    });
+fs.readdir(predir + trigdir, (err, files) => {
+    console.log(`Triggers Loaded: (${trigCount}/${files.length})`);
+});
 
 //Load Events
 evCount = 0;
-const evdir = './src/events';
-fs.readdirSync(evdir)
+const evdir = '/events';
+fs.readdirSync(predir + evdir)
     .filter(file => file.endsWith('.js'))
     .forEach(file => {
-        const event = require(`./events/${file}`);
+        const event = require(`.${evdir}/${file}`);
         if(event.name){
-            console.log(`Loaded Event: '${event.name}' from ${evdir}/${file}`);
+            console.log(`Loaded Event: '${event.name}' from ${predir + evdir}/${file}`);
             if (event.once) {
                 client.once(event.name, (...args) => event.execute(...args));
             } else {
@@ -60,9 +79,9 @@ fs.readdirSync(evdir)
             evCount++;
         }
     });
-fs.readdir(evdir, (err, files) => {
+fs.readdir(predir + evdir, (err, files) => {
     console.log(`Events Loaded: (${evCount}/${files.length})`);
 });
 
-//Discord Token
+//Login with Discord Token
 client.login(token);
