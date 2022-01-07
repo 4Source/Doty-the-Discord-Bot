@@ -8,8 +8,8 @@ Need the to Create the File ```/data/token.json```
 * **Your-Bot-Token** *replace with your Bot Token (keep Secret)*
 ```JSON
 {
-     	"clientId": "Bot-ID",
-	"guildId": "Test-Server-ID",
-    	"token": "Your-Bot-Token"
+  "clientId": "Bot-ID",
+  "guildId": "Test-Server-ID",
+  "token": "Your-Bot-Token"
 }
 ```
