@@ -7,7 +7,6 @@ console.log("Starting...");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 client.slashCommands = new Collection();
 client.commands = new Collection();
-client.triggers = new Collection();
 
 const predir ='./src';
 
@@ -43,23 +42,6 @@ fs.readdirSync(predir + comdir)
     });
 fs.readdir(predir + comdir, (err, files) => {
     console.log(`Commands Loaded: (${comCount}/${files.length})`);
-});
-
-//Load Triggers
-trigCount = 0;
-const trigdir = '/triggers';
-fs.readdirSync(predir + trigdir)
-    .filter(file => file.endsWith('.js'))
-    .forEach(file => {
-        const trigger = require(`.${trigdir}/${file}`);
-        if(trigger.name) {
-            console.log(`Loaded Trigger: '${trigger.name}' from ${predir + trigdir}/${file}`);
-            client.triggers.set(trigger.name, trigger);
-            trigCount++;
-        }
-    });
-fs.readdir(predir + trigdir, (err, files) => {
-    console.log(`Triggers Loaded: (${trigCount}/${files.length})`);
 });
 
 //Load Events
