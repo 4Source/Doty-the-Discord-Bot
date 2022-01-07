@@ -1,10 +1,15 @@
 # Doty the Discord Bot
 
 ## Required
-Need the File ```/data/config.json``` with:
+Need the to Change the File ```/data/token.json```
+Replace:
+*Bot-ID
+*Test-Server-ID
+*Your-Bot-Token
 ```JSON
 {
-    "token": "Your-Bot-Token",
-    "prefix": "!"
+     "clientId": "Bot-ID",
+	"guildId": "Test-Server-ID",
+    "token": "Your-Bot-Token"
 }
 ```
