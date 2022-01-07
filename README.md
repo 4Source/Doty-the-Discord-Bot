@@ -8,8 +8,8 @@ Replace:
 *Your-Bot-Token
 ```JSON
 {
-     "clientId": "Bot-ID",
+    	"clientId": "Bot-ID",
 	"guildId": "Test-Server-ID",
-    "token": "Your-Bot-Token"
+    	"token": "Your-Bot-Token"
 }
 ```
