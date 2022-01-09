@@ -1,4 +1,3 @@
-const short = require('shortid');
 const { prefix } = require("../../data/config.json");
 
 module.exports = {
@@ -7,10 +6,8 @@ module.exports = {
 		//Ignor Bot Messages
 		if (message.author.bot) return;
 
-        //Create Id for Logging
-        const id = short();
         //Log
-		console.log(`[messageCreate][#${message.channel.name}][${message.author.tag}][${id}] Triggerd with: "${message.content}"`);
+		console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Triggerd with: "${message.content}"`);
 
 		//Check if Command with Prefix
 		if(!message.content.startsWith(prefix)) return;
@@ -27,9 +24,9 @@ module.exports = {
 		//Execute Command
 		try {
             await command.execute(message, args, message.client);
-            console.log(`[messageCreate][#${message.channel.name}][${message.author.tag}][${id}] Successfully Executed Command!`);
+            console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Successfully Executed Command!`);
         } catch (error) {
-            console.error(`[messageCreate][#${message.channel.name}][${message.author.tag}][${id}] ${error}`);
+            console.error(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] ${error}`);
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
 	},

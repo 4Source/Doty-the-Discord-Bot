@@ -1,12 +1,8 @@
-const short = require('shortid');
-
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
-        //Create Id for Logging
-        const id = short();
         //Log
-		console.log(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] Triggerd!`);
+		console.log(`[interactionCreate][${interaction.guildId}][${interaction.channelId}][${interaction.user.id}][${interaction.id}] Triggerd!`);
         
         //Check ifnot SlashCommand
         if (!interaction.isCommand()) return;
@@ -20,9 +16,9 @@ module.exports = {
         //Execute SlashCommand
         try {
             await command.execute(interaction);
-            console.log(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] Successfully Executed Command!`);
+            console.log(`[interactionCreate][${interaction.guildId}][${interaction.channelId}][${interaction.user.id}][${interaction.id}] Successfully Executed Command!`);
         } catch (error) {
-            console.error(`[interactionCreate][#${interaction.channel.name}][${interaction.user.tag}][${id}] ${error}`);
+            console.error(`[interactionCreate][${interaction.guildId}][${interaction.channelId}][${interaction.user.id}][${interaction.id}] ${error}`);
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
 	},
