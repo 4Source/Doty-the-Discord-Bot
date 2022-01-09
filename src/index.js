@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
+const db = require("../util/database");
 
 console.log("Starting...");
 //Create Client Instance
@@ -12,7 +13,26 @@ client.commands = new Collection();
 
 const predir ='./src';
 
+
+
+
 (async () => {
+    //Test Database Connection
+    try {
+        await db.authenticate();
+        console.log('Connection to Database has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
+    //Sync Database Development
+    await db.sync({ alter: true })
+    .then((result) => {
+        console.log("Syncronized Database!")
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
     //Load SlashCommands
     scomCount = 0;
     const scomdir = '/slashCommands';
