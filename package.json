@@ -4,10 +4,11 @@
   "description": "Discord Bot Doty.",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "node src/deploy-commands.js",
-    "deploy-test": "node src/deploy-test-commands.js",
-    "start": "node src/deploy-commands.js & node src/index.js",
-    "start-test": "node src/deploy-test-commands.js & node src/index.js"
+    "deploy": "node -r dotenv/config src/deploy-commands.js",
+    "deploy-test": "node -r dotenv/config src/deploy-test-commands.js",
+    "start": "node -r dotenv/config src/deploy-commands.js & node -r dotenv/config src/index.js",
+    "start-test": "node -r dotenv/config src/deploy-test-commands.js & node -r dotenv/config src/index.js",
+    "dev": "nodemon -r dotenv/config src/index.js"
   },
   "author": "4Source",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "@discordjs/rest": "^0.2.0-canary.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.5.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "shortid": "^2.2.16"
   }
