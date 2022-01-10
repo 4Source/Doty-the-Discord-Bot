@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const db = require("../util/database");
+const GuildConfig = require('../database/models/guildConfig');
 
 console.log("Starting...");
 //Create Client Instance
@@ -10,6 +11,7 @@ const client = new Client({ intents: [
 });
 client.slashCommands = new Collection();
 client.commands = new Collection();
+client.guildConfigs = new Map();
 
 const predir ='./src';
 
@@ -32,6 +34,15 @@ const predir ='./src';
     .catch((err) => {
         console.log(err);
     });
+
+    //Load Guild Configs to 
+    const dbConfigs = await GuildConfig.findAll();
+    dbConfigs.every(config => config instanceof GuildConfig);
+
+    dbConfigs.forEach(config => client.guildConfigs.set(config.guild_id, config.dataValues));
+    console.log("configs:");
+    client.guildConfigs.forEach((config, index) => console.log(`i: ${index} config: ${config}`));
+    client.guildConfigs.forEach(config => console.log(config));
 
     //Load SlashCommands
     scomCount = 0;
