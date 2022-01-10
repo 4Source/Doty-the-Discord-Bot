@@ -16,6 +16,7 @@ const GuildConfig = db.define("guild_configs", {
     },
     welcome_channel_id: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
   }, {
     //Configuration Sequelize
