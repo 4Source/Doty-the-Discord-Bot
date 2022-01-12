@@ -7,8 +7,9 @@ console.log("Starting...");
 //Create Client Instance
 const client = new Client({ intents: [
     Intents.FLAGS.GUILDS, 
-    Intents.FLAGS.GUILD_MESSAGES] 
-});
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS
+]});
 client.slashCommands = new Collection();
 client.commands = new Collection();
 client.guildConfigs = new Map();
