@@ -1,8 +1,13 @@
+const {noGuildConfigsFound} = require("../../util/log-messages");
+
 module.exports = {
 	name: 'messageCreate',
 	async execute(message) {
 		//Ignor Bot Messages 
 		if (message.author.bot) return;
+
+		//Ignor Empty Messages
+		if(message.content === "") return;
 
         //Log
 		console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Triggerd with: "${message.content}"`);
@@ -11,7 +16,7 @@ module.exports = {
 		const config = message.client.guildConfigs.get(message.guildId);
 		if(!config) {
 			message.channel.send('No configs set.');
-			console.log(`No configs set for ${message.guildId}`);
+			noGuildConfigsFound(message.guildId, "messageCreate");
 			return;
 		} 
 
