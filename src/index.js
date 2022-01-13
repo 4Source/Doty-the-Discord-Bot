@@ -36,14 +36,17 @@ const predir ='./src';
         console.log(err);
     });
 
-    //Load Guild Configs to 
+    //Load Guild Configs to Memory
     const dbConfigs = await GuildConfig.findAll();
     dbConfigs.every(config => config instanceof GuildConfig);
 
-    dbConfigs.forEach(config => client.guildConfigs.set(config.guild_id, config.dataValues));
-    console.log("configs:");
-    client.guildConfigs.forEach((config, index) => console.log(`i: ${index} config: ${config}`));
-    client.guildConfigs.forEach(config => console.log(config));
+    dbCount = 0;
+    const entries = await GuildConfig.count();
+    dbConfigs.forEach(config => {
+        client.guildConfigs.set(config.guild_id, config.dataValues);
+        dbCount++;
+    });
+    
 
     //Load SlashCommands
     scomCount = 0;
@@ -99,6 +102,9 @@ const predir ='./src';
     await fs.readdir(predir + evdir, (err, files) => {
         console.log(`Events Loaded: (${evCount}/${files.length})`);
     });
+
+    //Log how many GuildConfigs Loaded
+    await console.log(`GuildConfigs Loaded: (${dbCount}/${entries})`);
 
     //Login with Discord Token
     client.login(process.env.BOT_TOKEN);

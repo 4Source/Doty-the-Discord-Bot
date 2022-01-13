@@ -40,11 +40,6 @@ module.exports = {
             console.log(`Loaded Guild Config with ID [${guildID}] from Database!`);
         }
 
-		
-
-
-
-
 		//Check if Command with Prefix
 		if(!message.content.startsWith(guildConfig.prefix)) return;
 
