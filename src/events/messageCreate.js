@@ -1,4 +1,5 @@
 const {noGuildConfigsFound} = require("../../util/log-messages");
+const GuildConfig = require('../../database/models/guildConfig');
 
 module.exports = {
 	name: 'messageCreate',
@@ -12,19 +13,43 @@ module.exports = {
         //Log
 		console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Triggerd with: "${message.content}"`);
 
-		//Get Guild Configs for Guild
-		const config = message.client.guildConfigs.get(message.guildId);
-		if(!config) {
-			message.channel.send('No configs set.');
-			noGuildConfigsFound(message.guildId, "messageCreate");
-			return;
-		} 
+		const guildID = message.guildId;
+		const client = message.client;
+		//Load Guild Config with GuildID from Memory
+        let guildConfig = client.guildConfigs.get(`${guildID}`);
+        //Check Guild exist in Memory
+        if(!guildConfig) noGuildConfigsFound(guildID, this.name);
+        //Check Guild exist in Database and assign if
+        if(!guildConfig) {
+            //Load Guild Configs to Memory from Database if exist
+            const dbConfigs = await GuildConfig.findAll({
+                where: {
+                    guild_id: guildID
+                }
+            });
+            dbConfigs.every(config => config instanceof GuildConfig);
+
+            dbConfigs.forEach(config => client.guildConfigs.set(config.guild_id, config.dataValues));
+
+            guildConfig = client.guildConfigs.get(`${guildID}`);
+            
+            if(!guildConfig) {
+                console.log(`Try Load Guild Config with ID [${guildID}] from Database FAILED!`);
+                return;
+            }
+            console.log(`Loaded Guild Config with ID [${guildID}] from Database!`);
+        }
+
+		
+
+
+
 
 		//Check if Command with Prefix
-		if(!message.content.startsWith(config.prefix)) return;
+		if(!message.content.startsWith(guildConfig.prefix)) return;
 
 		//Split in Args
-		const args = message.content.substring(config.prefix.length).split(/ +/);
+		const args = message.content.substring(guildConfig.prefix.length).split(/ +/);
 
 		//Search in Commands Collection for Command
 		const command = message.client.commands.find(cmd => cmd.name == args[0]);
