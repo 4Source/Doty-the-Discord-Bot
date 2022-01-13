@@ -58,7 +58,7 @@ module.exports = {
             console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Successfully Executed Command!`);
         } catch (error) {
             console.error(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] ${error}`);
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+            await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
 	},
 };
