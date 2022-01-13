@@ -4,25 +4,32 @@ const GuildConfig = require('../../database/models/guildConfig');
 module.exports = {
 	name: 'guildMemberAdd',
 	async execute(guildMember) {
-		
-		console.log(guildMember.displayName);
-
-        //Load Guild Config with GuildID from Memory
+		//Load Guild Config with GuildID from Memory
         let guildConfig = guildMember.client.guildConfigs.get(`${guildMember.guild.id}`);
 
+        if(!guildConfig) noGuildConfigsFound(guildMember.guild.id, "guildMemberAdd");
         //Check Guild exist in Memory (db)
-        /*if(!guildConfig) {
-            guildConfig  = await GuildConfig.findAll({
+        if(!guildConfig) {
+            //Load Guild Configs to 
+            const dbConfigs = await GuildConfig.findAll({
                 where: {
                     guild_id: guildMember.guild.id
                 }
             });
-            console.log(guildConfig);
-            if(guildConfig === []) console.log("Empty!");
-            //if(guildConfig !== "[]") guildMember.client.guildConfigs.set(guildConfig.guild_id, guildConfig.dataValues);
-            //console.log(guildConfig !== "[]" ? `Loaded Guild Config with ID [${guildMember.guild.id}] from Database!` : `Try Load Guild Config with ID [${guildMember.guild.id}] from Database FAILED!`);
-        }*/
-        if(!guildConfig) return noGuildConfigsFound(guildMember.guild.id, "guildMemberAdd");
+            dbConfigs.every(config => config instanceof GuildConfig);
+
+            dbConfigs.forEach(config => guildMember.client.guildConfigs.set(config.guild_id, config.dataValues));
+
+            guildConfig = guildMember.client.guildConfigs.get(`${guildMember.guild.id}`);
+            
+            if(!guildConfig) {
+                console.log(`Try Load Guild Config with ID [${guildMember.guild.id}] from Database FAILED!`);
+                return;
+            }
+            console.log(`Loaded Guild Config with ID [${guildMember.guild.id}] from Database!`);
+            
+        }
+        
 
         if(guildConfig.welcome_channel_id) {
             guildMember.guild.channels.fetch(guildConfig.welcome_channel_id)
