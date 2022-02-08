@@ -2,6 +2,8 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const db = require("../database/database");
 const GuildConfig = require('../database/models/guildConfig');
+const { init } = require('../websocket/websocket.module');
+
 
 console.log("Starting...");
 //Create Client Instance
@@ -20,6 +22,9 @@ const predir ='./src';
 
 
 (async () => {
+    // WebSocket Connection
+    const webSocket = init('http://localhost:3001');
+
     //Test Database Connection
     try {
         await db.authenticate();
@@ -44,10 +49,11 @@ const predir ='./src';
     const entries = await GuildConfig.count();
     dbConfigs.forEach(config => {
         client.guildConfigs.set(config.guild_id, config.dataValues);
+        // WebSocket Listening to GuildId 
+        webSocket.onGuild(client, {id: `${config.guild_id}`});
         dbCount++;
     });
     
-
     //Load SlashCommands
     scomCount = 0;
     const scomdir = '/slashCommands';
