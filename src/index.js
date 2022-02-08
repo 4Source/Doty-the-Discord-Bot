@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const db = require("../database/database");
 const GuildConfig = require('../database/models/guildConfig');
+const GuildAuditLog = require('../database/models/guildAuditLog');
 const { init } = require('../websocket/websocket.module');
 
 
