@@ -19,6 +19,7 @@
     "discord.js": "^13.5.0",
     "dotenv": "^10.0.0",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.12.5"
+    "sequelize": "^6.12.5",
+    "socket.io-client": "^4.4.1"
   }
 }
