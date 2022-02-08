@@ -5,21 +5,30 @@ const GuildConfig = require('../database/models/guildConfig');
 const GuildAuditLog = require('../database/models/guildAuditLog');
 const { init } = require('../websocket/websocket.module');
 
+const predir ='./src';
 
 console.log("Starting...");
+
+//Load Intents
+evCount = 0;
+const intdir = '/events';
+var comb_intents = 0;
+fs.readdirSync(predir + intdir)
+    .filter(file => file.endsWith('.js'))
+    .forEach(file => {
+        const  intents = require(`.${intdir}/${file}`).intents;
+
+        if(intents){
+            comb_intents = comb_intents | intents;
+        }
+    }
+);
+
 //Create Client Instance
-const client = new Client({ intents: [
-    Intents.FLAGS.GUILDS, 
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MEMBERS
-]});
+const client = new Client({ intents: comb_intents});
 client.slashCommands = new Collection();
 client.commands = new Collection();
 client.guildConfigs = new Map();
-
-const predir ='./src';
-
-
 
 
 (async () => {
@@ -62,7 +71,7 @@ const predir ='./src';
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
             const command = require(`.${scomdir}/${file}`);
-            if(command.data.name){
+            if(command && command.data && command.data.name){
                 console.log(`Loaded SlashCommand: '${command.data.name}' from ${predir + scomdir}/${file}`);
                 client.slashCommands.set(command.data.name, command);
                 scomCount++;
@@ -79,7 +88,7 @@ const predir ='./src';
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
             const command = require(`.${comdir}/${file}`);
-            if(command.name) {
+            if(command && command.name) {
                 console.log(`Loaded Command: '${command.name}' from ${predir + comdir}/${file}`);
                 client.commands.set(command.name, command);
                 comCount++;
@@ -95,8 +104,9 @@ const predir ='./src';
     await fs.readdirSync(predir + evdir)
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
-            const event = require(`.${evdir}/${file}`);
-            if(event.name){
+            const  event = require(`.${evdir}/${file}`).event;
+
+            if(event && event.name){
                 console.log(`Loaded Event: '${event.name}' from ${predir + evdir}/${file}`);
                 if (event.once) {
                     client.once(event.name, (...args) => event.execute(...args));
@@ -112,6 +122,7 @@ const predir ='./src';
 
     //Log how many GuildConfigs Loaded
     await console.log(`GuildConfigs Loaded: (${dbCount}/${entries})`);
+   
 
     //Login with Discord Token
     client.login(process.env.BOT_TOKEN);

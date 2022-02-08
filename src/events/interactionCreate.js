@@ -1,4 +1,6 @@
-module.exports = {
+const { Intents } = require("discord.js");
+
+const event = {
 	name: 'interactionCreate',
 	async execute(interaction) {
         //Log
@@ -22,4 +24,11 @@ module.exports = {
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         }
 	},
+};
+
+const intents = Intents.FLAGS.GUILD_INTEGRATIONS;
+
+module.exports = {
+	event,
+	intents,
 };

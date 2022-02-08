@@ -1,7 +1,8 @@
 const {noGuildConfigsFound} = require("../../util/log-messages");
 const GuildConfig = require('../../database/models/guildConfig');
+const { Intents } = require("discord.js");
 
-module.exports = {
+const event = {
 	name: 'guildMemberAdd',
 	async execute(guildMember) {
 		const guildID = guildMember.guild.id;
@@ -36,7 +37,7 @@ module.exports = {
             guildMember.guild.channels.fetch(guildConfig.welcome_channel_id)
             .then(channel => {
                 console.log(`Welcome Channel: ${channel.name}`);
-                channel.send("Hello");
+                //channel.send("Hello");
             })
             .catch(console.error);
             
@@ -45,4 +46,11 @@ module.exports = {
             console.log("no Welcome Channel!")
         }
     },
+};
+
+const intents = Intents.FLAGS.GUILD_MEMBERS;
+
+module.exports = {
+	event,
+	intents,
 };
