@@ -64,7 +64,7 @@ const event = {
         },
 };
 
-const intents =  Intents.FLAGS.GUILDS;
+const intents =  Intents.FLAGS.GUILD_MESSAGES;
 
 
 module.exports = {
