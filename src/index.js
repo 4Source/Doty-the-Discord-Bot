@@ -1,19 +1,69 @@
-require( 'dotenv' ).config();
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
-
-console.log("Starting...");
-//Create Client Instance
-const client = new Client({ intents: [
-    Intents.FLAGS.GUILDS, 
-    Intents.FLAGS.GUILD_MESSAGES] 
-});
-client.slashCommands = new Collection();
-client.commands = new Collection();
+const db = require("../database/database");
+const GuildConfig = require('../database/models/guildConfig');
+const GuildAuditLog = require('../database/models/guildAuditLog');
+const { init } = require('../websocket/websocket.module');
 
 const predir ='./src';
 
+console.log("Starting...");
+
+//Load Intents
+evCount = 0;
+const intdir = '/events';
+var comb_intents = 0;
+fs.readdirSync(predir + intdir)
+    .filter(file => file.endsWith('.js'))
+    .forEach(file => {
+        const  intents = require(`.${intdir}/${file}`).intents;
+
+        if(intents){
+            comb_intents = comb_intents | intents;
+        }
+    }
+);
+
+//Create Client Instance
+const client = new Client({ intents: comb_intents});
+client.slashCommands = new Collection();
+client.commands = new Collection();
+client.guildConfigs = new Map();
+
+
 (async () => {
+    // WebSocket Connection
+    const webSocket = init('http://localhost:3001');
+
+    //Test Database Connection
+    try {
+        await db.authenticate();
+        console.log('Connection to Database has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
+    //Sync Database Development
+    await db.sync({ alter: true })
+    .then((result) => {
+        console.log("Syncronized Database!")
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+    //Load Guild Configs to Memory
+    const dbConfigs = await GuildConfig.findAll();
+    dbConfigs.every(config => config instanceof GuildConfig);
+
+    dbCount = 0;
+    const entries = await GuildConfig.count();
+    dbConfigs.forEach(config => {
+        client.guildConfigs.set(config.guild_id, config.dataValues);
+        // WebSocket Listening to GuildId 
+        webSocket.onGuild(client, {id: `${config.guild_id}`});
+        dbCount++;
+    });
+    
     //Load SlashCommands
     scomCount = 0;
     const scomdir = '/slashCommands';
@@ -21,7 +71,7 @@ const predir ='./src';
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
             const command = require(`.${scomdir}/${file}`);
-            if(command.data.name){
+            if(command && command.data && command.data.name){
                 console.log(`Loaded SlashCommand: '${command.data.name}' from ${predir + scomdir}/${file}`);
                 client.slashCommands.set(command.data.name, command);
                 scomCount++;
@@ -38,7 +88,7 @@ const predir ='./src';
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
             const command = require(`.${comdir}/${file}`);
-            if(command.name) {
+            if(command && command.name) {
                 console.log(`Loaded Command: '${command.name}' from ${predir + comdir}/${file}`);
                 client.commands.set(command.name, command);
                 comCount++;
@@ -54,8 +104,9 @@ const predir ='./src';
     await fs.readdirSync(predir + evdir)
         .filter(file => file.endsWith('.js'))
         .forEach(file => {
-            const event = require(`.${evdir}/${file}`);
-            if(event.name){
+            const  event = require(`.${evdir}/${file}`).event;
+
+            if(event && event.name){
                 console.log(`Loaded Event: '${event.name}' from ${predir + evdir}/${file}`);
                 if (event.once) {
                     client.once(event.name, (...args) => event.execute(...args));
@@ -68,6 +119,10 @@ const predir ='./src';
     await fs.readdir(predir + evdir, (err, files) => {
         console.log(`Events Loaded: (${evCount}/${files.length})`);
     });
+
+    //Log how many GuildConfigs Loaded
+    await console.log(`GuildConfigs Loaded: (${dbCount}/${entries})`);
+   
 
     //Login with Discord Token
     client.login(process.env.BOT_TOKEN);

@@ -8,7 +8,7 @@
     "deploy-test": "node -r dotenv/config src/deploy-test-commands.js",
     "start": "node -r dotenv/config src/deploy-commands.js & node -r dotenv/config src/index.js",
     "start-test": "node -r dotenv/config src/deploy-test-commands.js & node -r dotenv/config src/index.js",
-    "dev": "nodemon -r dotenv/config src/index.js"
+    "start:dev": "nodemon -r dotenv/config src/index.js"
   },
   "author": "4Source",
   "license": "MIT",
@@ -17,6 +17,9 @@
     "@discordjs/rest": "^0.2.0-canary.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.5.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.5",
+    "socket.io-client": "^4.4.1"
   }
 }
