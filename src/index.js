@@ -60,7 +60,7 @@ client.guildConfigs = new Map();
     dbConfigs.forEach(config => {
         client.guildConfigs.set(config.guild_id, config.dataValues);
         // WebSocket Listening to GuildId 
-        webSocket.onGuild(client, {id: `${config.guild_id}`});
+        webSocket.onGuild(client, {guild_id: `${config.guild_id}`});
         dbCount++;
     });
     

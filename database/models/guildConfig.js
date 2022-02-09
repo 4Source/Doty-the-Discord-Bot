@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require('../database');
 
-
 const GuildConfig = db.define("guild_configs", {
     //Tabel Rows
     guild_id: {

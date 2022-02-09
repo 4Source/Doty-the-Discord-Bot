@@ -1,7 +1,6 @@
 module.exports = {
     /**
-     * 
-     * @param {number} guildID Guild Id whitch is Missing
+     * @param {string} guildID Guild ID whitch is Missing
      * @param {string} from Where send Message
      */
     noGuildConfigsFound: function (guildID, from) {
