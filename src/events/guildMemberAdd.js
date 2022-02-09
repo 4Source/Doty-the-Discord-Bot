@@ -1,5 +1,5 @@
-const {noGuildConfigsFound} = require("../../util/log-messages");
-const GuildConfig = require('../../database/models/guildConfig');
+const {noGuildConfigsFound} = require("../util/log-messages");
+const GuildConfig = require('../database/models/guildConfig');
 const { Intents } = require("discord.js");
 
 const event = {

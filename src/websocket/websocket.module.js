@@ -1,6 +1,12 @@
 const WebSocketClient = require('./WebSocketClient');
+/**
+ * @module webSocket
+ */
 
-// WebSocket Connection
+/**
+ * WebSocket Connection
+ * @type {WebSocketClient} 
+ */
 let webSocket;
 
 /**

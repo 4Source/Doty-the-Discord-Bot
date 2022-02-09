@@ -44,7 +44,7 @@ module.exports = {
                 }
                 break;
             case 'server':
-                description = interaction.guild.description;
+                let description = interaction.guild.description;
                 if(description == null) description = '';
                 embed.setTitle(interaction.guild.name)
                     .setThumbnail(interaction.guild.bannerURL())

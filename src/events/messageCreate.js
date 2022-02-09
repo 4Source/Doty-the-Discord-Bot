@@ -1,18 +1,20 @@
-const {noGuildConfigsFound} = require("../../util/log-messages");
-const GuildConfig = require('../../database/models/guildConfig');
+const {noGuildConfigsFound} = require("../util/log-messages");
+const GuildConfig = require('../database/models/guildConfig');
 const { Intents } = require("discord.js");
 
 const event = {
 	name: 'messageCreate',
         async execute(message) {
+             //Log
+             console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Triggerd with: "${message.content}"`);
+
             //Ignor Bot Messages 
             if (message.author.bot) return;
     
             //Ignor Empty Messages
             if(message.content === "") return;
     
-            //Log
-            console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Triggerd with: "${message.content}"`);
+           
     
             const guildID = message.guildId;
             const client = message.client;

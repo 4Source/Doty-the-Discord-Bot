@@ -4,10 +4,9 @@
   "description": "Discord Bot Doty.",
   "main": "src/index.js",
   "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
     "deploy": "node -r dotenv/config src/deploy-commands.js",
-    "deploy-test": "node -r dotenv/config src/deploy-test-commands.js",
-    "start": "node -r dotenv/config src/deploy-commands.js & node -r dotenv/config src/index.js",
-    "start-test": "node -r dotenv/config src/deploy-test-commands.js & node -r dotenv/config src/index.js",
+    "start": "node -r dotenv/config src/index.js",
     "start:dev": "nodemon -r dotenv/config src/index.js"
   },
   "author": "4Source",

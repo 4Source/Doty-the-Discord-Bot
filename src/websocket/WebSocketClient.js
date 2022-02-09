@@ -1,5 +1,7 @@
 const { io } = require('socket.io-client');
-
+/**
+ * Class to create a WebSocketClient object
+ */
 class WebSocketClient {
     /**
      * Initialize an socket
@@ -10,7 +12,8 @@ class WebSocketClient {
     }
 
     /**
-     * Register to some Events
+     * @property {Function} onEvents Register to some Events
+     * @returns {void}
      */
     onEvents() {
         this.socket.on('update', (data) => {
@@ -40,7 +43,7 @@ class WebSocketClient {
      */
     onGuild(client, guild) {
         if(!guild || !client) return;
-        console.log(`WebSocket for GuildID: ${guild.guild_id}`);
+        //console.log(`WebSocket for GuildID: ${guild.guild_id}`);
         this.socket.on(`${guild.guild_id}`, (data) => {
             console.log(data);
             const temp = client.guildConfigs.get(data.guild_id);

@@ -1,4 +1,4 @@
-const GuildConfig = require('../../database/models/guildConfig');
+const GuildConfig = require('../database/models/guildConfig');
 const { Intents } = require("discord.js");
 
 const event = {
