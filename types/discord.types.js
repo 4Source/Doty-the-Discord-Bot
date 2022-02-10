@@ -1,21 +1,21 @@
 /**
  * @typedef {object} Client 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Client DiscordJS}
- * @property {*} [application] The application of this bot
- * @property {*} channels All of the Channels that the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every channel in every guild the bot is a member of. Note that DM channels will not be initially cached, and thus not be present in the Manager without their explicit fetching or use.
- * @property {*} emojis All custom emojis that the client has access to, mapped by their ids
- * @property {*} guilds All of the guilds the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every guild the bot is a member of
- * @property {*} options The options the client was instantiated with
+ * @property {ClientApplication} [application] The application of this bot
+ * @property {ChannelManager} channels All of the Channels that the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every channel in every guild the bot is a member of. Note that DM channels will not be initially cached, and thus not be present in the Manager without their explicit fetching or use.
+ * @property {BaseGuildEmojiManager} emojis All custom emojis that the client has access to, mapped by their ids
+ * @property {GuildManager} guilds All of the guilds the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every guild the bot is a member of
+ * @property {ClientOptions} options The options the client was instantiated with
  * @property {Date} [readyAt] Time at which the client was last regarded as being in the READY state (each time the client disconnects and successfully reconnects, this will be overwritten)
  * @property {number} [readyTimestamp] Timestamp of the time the client was last READY at
- * @property {*} [shard] Shard helpers for the client (only if the process was spawned from a ShardingManager)
- * @property {*} sweepers The sweeping functions and their intervals used to periodically sweep caches
+ * @property {ShardClientUtil} [shard] Shard helpers for the client (only if the process was spawned from a ShardingManager)
+ * @property {Sweepers} sweepers The sweeping functions and their intervals used to periodically sweep caches
  * @property {string} [token] Authorization token for the logged in bot. If present, this defaults to process.env.DISCORD_TOKEN when instantiating the client
  * @property {number} [uptime] How long it has been since the client last entered the READY state in milliseconds
- * @property {*} [user] User that the client is logged in as
- * @property {*} users All of the User objects that have been cached at any point, mapped by their ids
- * @property {*} voice The voice manager of the client
- * @property {*} ws The WebSocket manager of the client
+ * @property {ClientUser} [user] User that the client is logged in as
+ * @property {UserManager} users All of the User objects that have been cached at any point, mapped by their ids
+ * @property {ClientVoiceManager} voice The voice manager of the client
+ * @property {WebSocketManager} ws The WebSocket manager of the client
  * @property {function} destroy Logs out, terminates the connection to Discord, and destroys the client.
  * @property {function} fetchGuildPreview Obtains a guild preview from Discord, available for all guilds the bot is in and all Discoverable guilds.
  * @property {function} fetchGuildTemplate Obtains a template from Discord.
@@ -103,7 +103,7 @@
 /**
  * @typedef {Object} Guild 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Guild DiscordJS}
- * @property {*} [afkChannel] AFK voice channel for this guild
+ * @property {VoiceChannel} [afkChannel] AFK voice channel for this guild
  * @property {Snowflake} [afkChannelId] The id of the voice channel where AFK members are moved
  * @property {number} [afkTimeout] The time in seconds before a user is counted as "away from keyboard"
  * @property {Snowflake} [applicationId] The id of the application that created this guild (if applicable)
@@ -111,62 +111,62 @@
  * @property {number} [approximatePresenceCount] The approximate amount of presences the guild has
  * @property {boolean} available Whether the guild is available to access. If it is not available, it indicates a server outage
  * @property {string} [banner] The hash of the guild banner
- * @property {*} bans A manager of the bans belonging to this guild
- * @property {*} channels A manager of the channels belonging to this guild
+ * @property {GuildBanManager} bans A manager of the bans belonging to this guild
+ * @property {GuildChannelManager} channels A manager of the channels belonging to this guild
  * @property {Client} client The client that instantiated this
- * @property {*} commands A manager of the application commands belonging to this guild
+ * @property {GuildApplicationCommandManager} commands A manager of the application commands belonging to this guild
  * @property {Date} createdAt The time this guild was created at
  * @property {number} createdTimestamp The timestamp this guild was created at
- * @property {*} defaultMessageNotifications The default message notification level of the guild
+ * @property {DefaultMessageNotificationLevel} defaultMessageNotifications The default message notification level of the guild
  * @property {string} [description] The description of the guild, if any
  * @property {string} [discoverySplash] The hash of the guild discovery splash image
- * @property {*} emojis A manager of the emojis belonging to this guild
- * @property {*} explicitContentFilter The explicit content filter level of the guild
- * @property {*} features An array of features available to this guild
+ * @property {GuildEmojiManager} emojis A manager of the emojis belonging to this guild
+ * @property {ExplicitContentFilterLevel} explicitContentFilter The explicit content filter level of the guild
+ * @property {Array<Features>} features An array of features available to this guild
  * @property {string} [icon] The icon hash of this guild
  * @property {Snowflake} id The guild's id
- * @property {*} invites A manager of the invites of this guild
+ * @property {GuildInviteManager} invites A manager of the invites of this guild
  * @property {Date} joinedAt The time the client user joined the guild
  * @property {number} joinedTimestamp The timestamp the client user joined the guild at
  * @property {boolean} large Whether the guild is "large" (has more than large_threshold members, 50 by default)
  * @property {number} maximumBitrate The maximum bitrate available for this guild
  * @property {number} [maximumMembers] The maximum amount of members the guild can have
  * @property {number} [maximumPresences] The maximum amount of presences the guild can have
- * @property {*} [me] The client user as a GuildMember of this guild
+ * @property {GuildMember} [me] The client user as a GuildMember of this guild
  * @property {number} memberCount The full amount of members in this guild
- * @property {*} members A manager of the members belonging to this guild
- * @property {*} mfaLevel The required MFA level for this guild
+ * @property {GuildMemberManager} members A manager of the members belonging to this guild
+ * @property {MFALevel} mfaLevel The required MFA level for this guild
  * @property {string} name The name of this guild
  * @property {string} nameAcronym The acronym that shows up in place of a guild icon
- * @property {*} nsfwLevel The NSFW level of this guild
+ * @property {NSFWLevel} nsfwLevel The NSFW level of this guild
  * @property {Snowflake} ownerId The user id of this guild's owner
  * @property {boolean} partnered Whether this guild is partnered
  * @property {string} preferredLocale The preferred locale of the guild, defaults to en-US
  * @property {boolean} premiumProgressBarEnabled Whether this guild has its premium (boost) progress bar enabled
  * @property {number} [premiumSubscriptionCount] The total number of boosts for this server
- * @property {*} premiumTier The premium tier of this guild
- * @property {*} presences A manager of the presences belonging to this guild
- * @property {*} [publicUpdatesChannel] Public updates channel for this guild
+ * @property {PremiumTier} premiumTier The premium tier of this guild
+ * @property {PresenceManager} presences A manager of the presences belonging to this guild
+ * @property {TextChannel} [publicUpdatesChannel] Public updates channel for this guild
  * @property {Snowflake} [publicUpdatesChannelId] The community updates channel's id for the guild
- * @property {*} roles A manager of the roles belonging to this guild
- * @property {*} [rulesChannel] Rules channel for this guild
+ * @property {RoleManager} roles A manager of the roles belonging to this guild
+ * @property {TextChannel} [rulesChannel] Rules channel for this guild
  * @property {Snowflake} [rulesChannelId] The rules channel's id for the guild
- * @property {*} scheduledEvents A manager of the scheduled events of this guild
- * @property {*} shard The Shard this Guild belongs to.
+ * @property {GuildScheduledEventManager} scheduledEvents A manager of the scheduled events of this guild
+ * @property {WebSocketShard} shard The Shard this Guild belongs to.
  * @property {number} shardId The id of the shard this Guild belongs to.
  * @property {string} [splash] The hash of the guild invite splash image
- * @property {*} stageInstances A manager of the stage instances of this guild
- * @property {*} stickers A manager of the stickers belonging to this guild
- * @property {*} [systemChannel] System channel for this guild
- * @property {*} systemChannelFlags The value set for the guild's system channel flags
+ * @property {StageInstanceManager} stageInstances A manager of the stage instances of this guild
+ * @property {GuildStickerManager} stickers A manager of the stickers belonging to this guild
+ * @property {TextChannel} [systemChannel] System channel for this guild
+ * @property {SystemChannelFlags} systemChannelFlags The value set for the guild's system channel flags
  * @property {Snowflake} [systemChannelId] The system channel's id
  * @property {string} [vanityURLCode] The vanity invite code of the guild, if any
  * @property {number} [vanityURLUses] The use count of the vanity URL code of the guild, if any
- * @property {*} verificationLevel The verification level of the guild
+ * @property {VerificationLevel} verificationLevel The verification level of the guild
  * @property {boolean} verified Whether this guild is verified
  * @property {function} voiceAdapterCreator The voice state adapter for this guild that can be used with @discordjs/voice to play audio in voice and stage channels.
- * @property {*} voiceStates A manager of the voice states of this guild
- * @property {*} [widgetChannel] Widget channel for this guild
+ * @property {VoiceStateManager} voiceStates A manager of the voice states of this guild
+ * @property {TextChannel} [widgetChannel] Widget channel for this guild
  * @property {string} [widgetChannelId] The widget channel's id, if enabled
  * @property {boolean} [widgetEnabled] Whether widget images are enabled on this guild
  * @property {function} bannerURL The URL to this guild's banner.
@@ -223,10 +223,56 @@
  */
 
 /**
+ * @typedef {object} GuildMember
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildMember DiscordJS}
+ * @property {string} [avatar] The guild member's avatar hash
+ * @property {string} bannable Whether this member is bannable by the client user
+ * @property {Client} client The client that instantiated this
+ * @property {Date} [communicationDisabledUntil] The time this member's timeout will be removed
+ * @property {number} [communicationDisabledUntilTimestamp] The timestamp this member's timeout will be removed
+ * @property {number} displayColor The displayed color of this member in base 10
+ * @property {string} displayHexColor The displayed color of this member in hexadecimal
+ * @property {string} [displayName] The nickname of this member, or their username if they don't have one
+ * @property {Guild} guild The guild that this member is part of
+ * @property {Snowflake} id The member's id
+ * @property {Date} [joinedAt] The time this member joined the guild
+ * @property {number} [joinedTimestamp] The timestamp the member joined the guild at
+ * @property {boolean} kickable Whether this member is kickable by the client user
+ * @property {boolean} manageable Whether the client user is above this user in the hierarchy, according to role position and guild ownership. This is a prerequisite for many moderative actions.
+ * @property {boolean} moderatable Whether this member is moderatable by the client user
+ * @property {string} [nickname] The nickname of this member, if they have one
+ * @property {boolean} partial Whether this GuildMember is a partial
+ * @property {boolean} pending Whether this member has yet to pass the guild's membership gate
+ * @property {Permissions} permissions The overall set of permissions for this member, taking only roles and owner status into account
+ * @property {Date} [premiumSince] The last time this member started boosting the guild
+ * @property {number} [premiumSinceTimestamp] The last timestamp this member started boosting the guild
+ * @property {Presence} [presence] The presence of this guild member
+ * @property {GuildMemberRoleManager} roles A manager for the roles belonging to this member
+ * @property {User} [user] The user that this guild member instance represents
+ * @property {VoiceState} voice The voice state of this member
+ * @property {function} avatarURL A link to the member's guild avatar.
+ * @property {function} ban Bans this guild member.
+ * @property {function} createDM Creates a DM channel between the client and this member.
+ * @property {function} deleteDM Deletes any DMs with this member.
+ * @property {function} disableCommunicationUntil Times this guild member out.
+ * @property {function} displayAvatarURL A link to the member's guild avatar if they have one. Otherwise, a link to their User#displayAvatarURL will be returned.
+ * @property {function} edit Edits this member.
+ * @property {function} equals Whether this guild member equals another guild member. It compares all properties, so for most comparison it is advisable to just compare member.id === member2.id as it is significantly faster and is often what most users need.
+ * @property {function} fetch Fetches this GuildMember.
+ * @property {function} isCommunicationDisabled Whether this member is currently timed out
+ * @property {function} kick Kicks this member from the guild.
+ * @property {function} permissionsIn Returns channel.permissionsFor(guildMember). Returns permissions for a member in a guild channel, taking into account roles and permission overwrites.
+ * @property {function} send Sends a message to this channel.
+ * @property {function} setNickname Sets the nickname for this member.
+ * @property {function} timeout Times this guild member out.
+ * @property {function} toString When concatenated with a string, this automatically returns the user's mention instead of the GuildMember object.
+ */
+
+/**
  * @typedef {Object} Interaction 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
  * @property {Snowflake} applicationId The application's id
- * @property {*} [channel] The channel this interaction was sent in
+ * @property {TextBasedChannels} [channel] The channel this interaction was sent in
  * @property {Snowflake} [channelId] The id of the channel this interaction was sent in
  * @property {Client} client The client that instantiated this
  * @property {Date} createdAt The time the interaction was created at
@@ -236,10 +282,10 @@
  * @property {string} [guildLocale] The preferred locale from the guild this interaction was sent in
  * @property {Snowflake} id The interaction's id
  * @property {string} locale The locale of the user who invoked this interaction
- * @property {*} [member] If this interaction was sent in a guild, the member which sent it
- * @property {*} [memberPermissions] The permissions of the member, if one exists, in the channel this interaction was executed in
+ * @property {(GuildMember|APIGuildMember)} [member] If this interaction was sent in a guild, the member which sent it
+ * @property {Permissions} [memberPermissions] The permissions of the member, if one exists, in the channel this interaction was executed in
  * @property {string} token The interaction's token
- * @property {*} type The interaction's type
+ * @property {InteractionType} type The interaction's type
  * @property {User} user The user which sent this interaction
  * @property {number} version The version
  * @property {function} inCachedGuild Indicates whether or not this interaction is both cached and received from a guild.
@@ -259,15 +305,15 @@
 /**
  * @typedef {Object} Message 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Message DiscordJS}
- * @property {*} [activity] Group activity
+ * @property {MessageActivity} [activity] Group activity
  * @property {Snowflake} [applicationId] The id of the application of the interaction that sent this message, if any
- * @property {*} attachments A collection of attachments in the message - e.g. Pictures - mapped by their ids
+ * @property {Collection<Snowflake, MessageAttachment>} attachments A collection of attachments in the message - e.g. Pictures - mapped by their ids
  * @property {User} [author] The author of the message
- * @property {*} channel The channel that the message was sent in
+ * @property {(TextChannel|DMChannel|NewsChannel|ThreadChannel)} channel The channel that the message was sent in
  * @property {Snowflake} channelId The id of the channel the message was sent in
  * @property {string} [cleanContent] The message contents with all mentions replaced by the equivalent text. If mentions cannot be resolved to a name, the relevant mention in the message content will not be converted.
  * @property {Client} client The client that instantiated this
- * @property {*} components A list of MessageActionRows in the message
+ * @property {Array<MessageActionRow>} components A list of MessageActionRows in the message
  * @property {string} [content] The content of the message
  * @property {Date} createdAt The time the message was sent at
  * @property {number} createdTimestamp The timestamp the message was sent at
@@ -276,27 +322,27 @@
  * @property {boolean} editable Whether the message is editable by the client user
  * @property {Date} [editedAt] The time the message was last edited at (if applicable)
  * @property {number} [editedTimestamp] The timestamp the message was last edited at (if applicable)
- * @property {*} embeds A list of embeds in the message - e.g. YouTube Player
- * @property {*} flags Flags that are applied to the message
- * @property {*} [groupActivityApplication] Supplemental application information for group activities
+ * @property {Array<MessageEmbed>} embeds A list of embeds in the message - e.g. YouTube Player
+ * @property {MessageFlags} flags Flags that are applied to the message
+ * @property {ClientApplication} [groupActivityApplication] Supplemental application information for group activities
  * @property {Guild} [guild] The guild the message was sent in (if in a guild channel)
  * @property {Snowflake} [guildId] The id of the guild the message was sent in, if any
  * @property {boolean} hasThread Whether this message has a thread associated with it
  * @property {Snowflake} id The message's id
- * @property {*} [interaction] Partial data of the interaction that this message is a reply to
- * @property {*} [member] Represents the author of the message as a guild member. Only available if the message comes from a guild where the author is still a member
- * @property {*} mentions All valid mentions that the message contains
+ * @property {MessageInteraction} [interaction] Partial data of the interaction that this message is a reply to
+ * @property {GuildMember} [member] Represents the author of the message as a guild member. Only available if the message comes from a guild where the author is still a member
+ * @property {MessageMentions} mentions All valid mentions that the message contains
  * @property {string} [nonce] A random number or string used for checking message delivery
  * @property {boolean} partial Whether or not this message is a partial
  * @property {boolean} pinnable Whether the message is pinnable by the client user
  * @property {boolean} [pinned] Whether or not this message is pinned
- * @property {*} reactions A manager of the reactions belonging to this message
- * @property {*} [reference] Message reference data
- * @property {*} stickers A collection of stickers in the message
+ * @property {ReactionManager} reactions A manager of the reactions belonging to this message
+ * @property {MessageReference} [reference] Message reference data
+ * @property {Collection<Snowflake, Sticker>} stickers A collection of stickers in the message
  * @property {boolean} [system] Whether or not this message was sent by Discord, not actually a user (e.g. pin notifications)
- * @property {*} [thread] The thread started by this message
+ * @property {ThreadChannel} [thread] The thread started by this message
  * @property {boolean} [tts] Whether or not the message was Text-To-Speech
- * @property {*} [type] The type of the message
+ * @property {MessageType} [type] The type of the message
  * @property {string} url The URL to jump to this message
  * @property {Snowflake} [webhookId] The id of the webhook that sent the message, if applicable
  * @property {function} awaitMessageComponent Collects a single component interaction that passes the filter. The Promise will reject if the time expires.
@@ -338,8 +384,8 @@
  * @property {number} createdTimestamp The timestamp the user was created at
  * @property {string} defaultAvatarURL A link to the user's default avatar
  * @property {string} [discriminator] A discriminator based on username for the user
- * @property {*} [dmChannel] The DM between the client's user and this user
- * @property {*} [flags] The flags for this user
+ * @property {DMChannel} [dmChannel] The DM between the client's user and this user
+ * @property {UserFlags} [flags] The flags for this user
  * @property {string} [hexAccentColor] The hexadecimal version of the user accent color, with a leading hash
  * @property {Snowflake} id The user's id
  * @property {boolean} partial Whether this User is a partial
