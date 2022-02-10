@@ -1,5 +1,6 @@
 const { io } = require('socket.io-client');
 const { Client } = require('discord.js')
+const { GuildConfig } = require('../database/models/guildConfig');
 
 /**
  * Class to create a WebSocketClient object
@@ -30,12 +31,7 @@ class WebSocketClient {
     on(ev, callback) {
         this.socket.on(ev, callback());
     }
-    /**
-     * @typedef {Object} GuildConfig
-     * @property {string} guild_id
-     * @property {string} prefix
-     * @property {string} welcome_channel_id
-     */
+    
     /**
      * 
      * @param {Client} client Takes the Client Object
