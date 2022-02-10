@@ -32,4 +32,70 @@
  * @property {function} isUserContextMenu Indicates whether this interaction is a UserContextMenuInteraction
  */
 
+/**
+ * @typedef {Object} Message 
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Message DiscordJS}
+ * @property {*} [activity] Group activity
+ * @property {Snowflake} [applicationId] The id of the application of the interaction that sent this message, if any
+ * @property {*} attachments A collection of attachments in the message - e.g. Pictures - mapped by their ids
+ * @property {User} [author] The author of the message
+ * @property {*} channel The channel that the message was sent in
+ * @property {Snowflake} channelId The id of the channel the message was sent in
+ * @property {string} [cleanContent] The message contents with all mentions replaced by the equivalent text. If mentions cannot be resolved to a name, the relevant mention in the message content will not be converted.
+ * @property {Client} client The client that instantiated this
+ * @property {*} components A list of MessageActionRows in the message
+ * @property {string} [content] The content of the message
+ * @property {Date} createdAt The time the message was sent at
+ * @property {number} createdTimestamp The timestamp the message was sent at
+ * @property {boolean} crosspostable Whether the message is crosspostable by the client user
+ * @property {boolean} deletable Whether the message is deletable by the client user
+ * @property {boolean} editable Whether the message is editable by the client user
+ * @property {Date} [editedAt] The time the message was last edited at (if applicable)
+ * @property {number} [editedTimestamp] The timestamp the message was last edited at (if applicable)
+ * @property {*} embeds A list of embeds in the message - e.g. YouTube Player
+ * @property {*} flags Flags that are applied to the message
+ * @property {*} [groupActivityApplication] Supplemental application information for group activities
+ * @property {Guild} [guild] The guild the message was sent in (if in a guild channel)
+ * @property {Snowflake} [guildId] The id of the guild the message was sent in, if any
+ * @property {boolean} hasThread Whether this message has a thread associated with it
+ * @property {Snowflake} id The message's id
+ * @property {*} [interaction] Partial data of the interaction that this message is a reply to
+ * @property {*} [member] Represents the author of the message as a guild member. Only available if the message comes from a guild where the author is still a member
+ * @property {*} mentions All valid mentions that the message contains
+ * @property {string} [nonce] A random number or string used for checking message delivery
+ * @property {boolean} partial Whether or not this message is a partial
+ * @property {boolean} pinnable Whether the message is pinnable by the client user
+ * @property {boolean} [pinned] Whether or not this message is pinned
+ * @property {*} reactions A manager of the reactions belonging to this message
+ * @property {*} [reference] Message reference data
+ * @property {*} stickers A collection of stickers in the message
+ * @property {boolean} [system] Whether or not this message was sent by Discord, not actually a user (e.g. pin notifications)
+ * @property {*} [thread] The thread started by this message
+ * @property {boolean} [tts] Whether or not the message was Text-To-Speech
+ * @property {*} [type] The type of the message
+ * @property {string} url The URL to jump to this message
+ * @property {Snowflake} [webhookId] The id of the webhook that sent the message, if applicable
+ * @property {function} awaitMessageComponent Collects a single component interaction that passes the filter. The Promise will reject if the time expires.
+ * @property {function} awaitReactions Similar to createReactionCollector but in promise form. Resolves with a collection of reactions that pass the specified filter.
+ * @property {function} createMessageComponentCollector Creates a message component interaction collector.
+ * @property {function} createReactionCollector Creates a reaction collector.
+ * @property {function} crosspost Publishes a message in an announcement channel to all channels following it.
+ * @property {function} delete Deletes the message.
+ * @property {function} edit Edits the content of the message.
+ * @property {function} equals Used mainly internally. Whether two messages are identical in properties. If you want to compare messages without checking all the properties, use message.id === message2.id, which is much more efficient. This method allows you to see if there are differences in content, embeds, attachments, nonce and tts properties.
+ * @property {function} fetch Fetch this message.
+ * @property {function} fetchReference Fetches the Message this crosspost/reply/pin-add references, if available to the client
+ * @property {function} fetchWebhook Fetches the webhook used to create this message.
+ * @property {function} inGuild Whether this message is from a guild.
+ * @property {function} pin Pins this message to the channel's pinned messages.
+ * @property {function} react Adds a reaction to the message.
+ * @property {function} removeAttachments Removes the attachments from this message.
+ * @property {function} reply Send an inline reply to this message.
+ * @property {function} resolveComponent Resolves a component by a custom id.
+ * @property {function} startThread Create a new public thread from this message
+ * @property {function} suppressEmbeds Suppresses or unsuppresses embeds on a message.
+ * @property {function} toString When concatenated with a string, this automatically concatenates the message's content instead of the object.
+ * @property {function} unpin Unpins this message from the channel's pinned messages.
+ */
+
  module.exports.unused = {};
