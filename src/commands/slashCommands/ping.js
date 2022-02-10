@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { Interaction } = require('discord.js');
 const ping = require('../util/ping');
 
 module.exports = {
@@ -6,10 +7,13 @@ module.exports = {
     .setName('ping')
     .setDescription('Ping of the Bot'),
 
-    execute(interaction) {
-        const args = [''];
-        const client = interaction.client;
-        
-        interaction.reply({ embeds: [ping(client)]});
+    /**
+     * @memberof SlashCommands
+     * @alias ping
+     * @description Uses the {@link Commands.ping} to get the Response.
+     * @param {Interaction} interaction The Interaction which containes the Command
+     */
+    execute(interaction) {     
+        interaction.reply({ embeds: [ping(interaction.client)]});
     }
 }

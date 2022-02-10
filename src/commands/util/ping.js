@@ -1,10 +1,10 @@
-const { MessageEmbed } = require('discord.js');
-const { Interaction, Message, Client } = require('../../../types/discord.types')
+const {Client, MessageEmbed} = require('discord.js');
 
 /**
  * @memberof Commands
- * @param {Client} client 
- * @returns {MessageEmbed}
+ * @description Returns the Ping of the Bot.
+ * @param {Client} client  The Bot
+ * @returns {MessageEmbed} Embeded Message
  */
 const ping = (client) => {            
     return new MessageEmbed()

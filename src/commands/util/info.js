@@ -1,20 +1,14 @@
-const { MessageEmbed } = require('discord.js');
-const { User, Guild, Client } = require('../../../types/discord.types')
+const { MessageEmbed, User, Guild, Client } = require('discord.js');
+
 
 /**
- * 
- * @typedef {object} Args
- * @property {string} type
- * @property {object} [target]
- *
- */
-/**
  * @memberof Commands
+ * @description Returns Info about an User, Guild(Server) or The Bot
  * @param {Args} args Arguments Passed
  * @param {User} user User who initiated this
  * @param {Guild} guild The Guild where this was triggerd
- * @param {Client} client
- * @returns {MessageEmbed}
+ * @param {Client} client The Bot
+ * @returns {MessageEmbed} Embeded Message
  */
 const info = (args, user, guild, client) => {            
     const embed = new MessageEmbed()

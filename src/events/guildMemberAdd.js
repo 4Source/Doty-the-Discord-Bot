@@ -1,9 +1,16 @@
 const {noGuildConfigsFound} = require("../util/log-messages");
 const GuildConfig = require('../database/models/guildConfig');
-const { Intents } = require("discord.js");
+const { Intents, GuildMember } = require("discord.js");
 
 const event = {
 	name: 'guildMemberAdd',
+    /**
+     * @memberof Events
+     * @alias guildMemberAdd
+     * @description Executed when the Event was triggerd. 
+     * <br>See DiscordJs: {@Link https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-guildMemberAdd guildMemberAdd}
+     * @param {GuildMember} guildMember Represents a member of a guild on Discord.
+     */
 	async execute(guildMember) {
 		const guildID = guildMember.guild.id;
 		const client = guildMember.client;
