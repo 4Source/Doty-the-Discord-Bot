@@ -1,7 +1,14 @@
-const { Intents } = require("discord.js");
+const { Intents, Interaction } = require("discord.js");
 
 const event = {
 	name: 'interactionCreate',
+    /**
+     * @memberof Events
+     * @alias interactionCreate
+     * @description Executed when the Event was triggerd. 
+     * <br>See DiscordJs: {@Link https://discord.js.org/#/docs/discord.js/stable/class/Client?scrollTo=e-interactionCreate interactionCreate}
+     * @param {Interaction} interaction Represents an interaction.
+     */
 	async execute(interaction) {
         //Log
 		console.log(`[interactionCreate][${interaction.guildId}][${interaction.channelId}][${interaction.user.id}][${interaction.id}] Triggerd!`);

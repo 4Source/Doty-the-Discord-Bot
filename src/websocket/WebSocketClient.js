@@ -1,5 +1,5 @@
 const { io } = require('socket.io-client');
-const { Client } = require('../../types/discord.types')
+const { Client } = require('discord.js')
 const { GuildConfig } = require('../database/models/guildConfig');
 
 /**

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Interaction } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,7 +19,12 @@ module.exports = {
             .setName('bot')
             .setDescription('Info about the Bot')),
 
-    
+    /**
+     * @memberof SlashCommands
+     * @alias info
+     * @description Uses the {@link Commands.info} to get the Response.
+     * @param {Interaction} interaction The Interaction which containes the Command
+     */
     async execute(interaction) {
         const sub = interaction.options.getSubcommand();
         const embed = new MessageEmbed()
