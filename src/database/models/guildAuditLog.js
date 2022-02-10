@@ -1,7 +1,39 @@
 const { DataTypes } = require('sequelize');
 const db = require('../database');
 
-const GuildAuditLog = db.define("guild_audits", {
+/**
+ * @readonly
+ * @enum {string}
+ * @property {string} NODE A note to an Member
+ * @property {string} WARN A warning to an Member
+ * @property {string} MUTE Member get Muted
+ * @property {string} KICK Member get kicked from Guild
+ * @property {string} TIMEOUT Member get a timeout
+ * @property {string} BAN Member get banned from Guild
+ */
+const AUDIT_TYPES = Object.freeze({
+    NODE: 'node',
+    WARN: 'warn',
+    MUTE: 'mute',
+    KICK: 'kick',
+    TIMEOUT: 'timeout',
+    BAN: 'ban'
+});
+module.exports = AUDIT_TYPES;
+
+/**
+ * @typedef {Object} GuildAuditLog
+ * @property {number} id The ID of this Log
+ * @property {string} guild_id The ID of the Guild
+ * @property {string} member_id The ID of the Member who was affected
+ * @property {string} mod_id The ID of the Mod who did this
+ * @property {string} reason The Reason
+ * @property {Date} reported_on The Date when this was created
+ * @property {AUDIT_TYPES} type
+ * 
+ */
+
+ module.exports.GuildAuditLog = db.define("guild_audits", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -36,5 +68,3 @@ const GuildAuditLog = db.define("guild_audits", {
     //Configuration Sequelize
     timestamps: false
 });
-
-module.exports = GuildAuditLog;
