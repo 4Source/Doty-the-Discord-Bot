@@ -57,7 +57,7 @@ const event = {
     
             //Execute Command
             try {
-                await command.execute(message, args, message.client);
+                await command.execute(message, args, client);
                 console.log(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] Successfully Executed Command!`);
             } catch (error) {
                 console.error(`[messageCreate][${message.guildId}][${message.channelId}][${message.author.id}][${message.id}] ${error}`);
