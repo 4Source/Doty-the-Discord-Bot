@@ -1,4 +1,21 @@
 /**
+ * @typedef {object} Channel 
+ * @description Represents any channel on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Channel DiscordJS}
+ * @property {Client} client The client that instantiated this
+ * @property {Date} createdAt The time the channel was created at
+ * @property {number} createdTimestamp The timestamp the channel was created at
+ * @property {Snowflake} id The channel's id
+ * @property {boolean} partial Whether this Channel is a partial
+ * @property {ChannelType} type The type of the channel
+ * @property {function} delete Deletes this channel.
+ * @property {function} fetch Fetches this channel.
+ * @property {function} isText Indicates whether this channel is text-based.
+ * @property {function} isThread Indicates whether this channel is a ThreadChannel.
+ * @property {function} isVoice Indicates whether this channel is voice-based.
+ * @property {function} toString When concatenated with a string, this automatically returns the channel's mention instead of the Channel object.
+ */
+
+/**
  * @typedef {object} Client 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Client DiscordJS}
  * @property {ClientApplication} [application] The application of this bot
