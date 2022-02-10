@@ -17,7 +17,7 @@
 
 /**
  * @typedef {object} Client 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Client DiscordJS}
+ * @description The main hub for interacting with the Discord API, and the starting point for any bot. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Client DiscordJS}
  * @property {ClientApplication} [application] The application of this bot
  * @property {ChannelManager} channels All of the Channels that the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every channel in every guild the bot is a member of. Note that DM channels will not be initially cached, and thus not be present in the Manager without their explicit fetching or use.
  * @property {BaseGuildEmojiManager} emojis All custom emojis that the client has access to, mapped by their ids
@@ -119,7 +119,7 @@
 
 /**
  * @typedef {Object} Guild 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Guild DiscordJS}
+ * @description Represents a guild (or a server) on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Guild DiscordJS}
  * @property {VoiceChannel} [afkChannel] AFK voice channel for this guild
  * @property {Snowflake} [afkChannelId] The id of the voice channel where AFK members are moved
  * @property {number} [afkTimeout] The time in seconds before a user is counted as "away from keyboard"
@@ -230,7 +230,7 @@
 
 /**
  * @typedef {Object} GuildBan 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildBan DiscordJS}
+ * @description Represents a ban in a guild on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildBan DiscordJS}
  * @property {Client} client The client that instantiated this
  * @property {Guild} guild The guild in which the ban is
  * @property {boolean} partial Whether this GuildBan is partial. If the reason is not provided the value is null
@@ -241,7 +241,7 @@
 
 /**
  * @typedef {object} GuildMember
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildMember DiscordJS}
+ * @description Represents a member of a guild on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildMember DiscordJS}
  * @property {string} [avatar] The guild member's avatar hash
  * @property {string} bannable Whether this member is bannable by the client user
  * @property {Client} client The client that instantiated this
@@ -287,7 +287,7 @@
 
 /**
  * @typedef {Object} Interaction 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
+ * @description Represents an interaction. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
  * @property {Snowflake} applicationId The application's id
  * @property {TextBasedChannels} [channel] The channel this interaction was sent in
  * @property {Snowflake} [channelId] The id of the channel this interaction was sent in
@@ -321,7 +321,7 @@
 
 /**
  * @typedef {Object} Message 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Message DiscordJS}
+ * @description Represents a message on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Message DiscordJS}
  * @property {MessageActivity} [activity] Group activity
  * @property {Snowflake} [applicationId] The id of the application of the interaction that sent this message, if any
  * @property {Collection<Snowflake, MessageAttachment>} attachments A collection of attachments in the message - e.g. Pictures - mapped by their ids
@@ -391,7 +391,7 @@
 
 /**
  * @typedef {Object} User 
- * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/User DiscordJS}
+ * @description Represents a user on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/User DiscordJS}
  * @property {number} [accentColor] The base 10 accent color of the user's banner
  * @property {string} [avatar] The user avatar's hash
  * @property {string} [banner] The user banner's hash
