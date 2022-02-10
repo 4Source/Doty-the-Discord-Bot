@@ -118,6 +118,35 @@
  */
 
 /**
+ * @typedef {Object} DMChannel 
+ * @description Represents a direct message channel between two users. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/DMChannel DiscordJS}
+ * @property {Client} client The client that instantiated this
+ * @property {Date} createdAt The time the channel was created at
+ * @property {number} createdTimestamp The timestamp the channel was created at
+ * @property {Snowflake} id The channel's id
+ * @property {Message} [lastMessage] The Message object of the last message in the channel, if one was sent
+ * @property {Snowflake} [lastMessageId] The channel's last message id, if one was sent
+ * @property {Date} [lastPinAt] The date when the last pinned message was pinned, if there was one
+ * @property {number} [lastPinTimestamp] The timestamp when the last pinned message was pinned, if there was one
+ * @property {MessageManager} messages A manager of the messages belonging to this channel
+ * @property {boolean} partial Whether this DMChannel is a partial
+ * @property {User} recipient The recipient on the other end of the DM
+ * @property {ChannelType} type The type of the channel
+ * @property {function} awaitMessageComponent Collects a single component interaction that passes the filter. The Promise will reject if the time expires.
+ * @property {function} awaitMessages Similar to createMessageCollector but in promise form. Resolves with a collection of messages that pass the specified filter.
+ * @property {function} createMessageCollector Creates a Message Collector.
+ * @property {function} createMessageComponentCollector Creates a button interaction collector.
+ * @property {function} delete Deletes this channel.
+ * @property {function} fetch Fetch this DMChannel.
+ * @property {function} isText Indicates whether this channel is text-based.
+ * @property {function} isThread Indicates whether this channel is a ThreadChannel.
+ * @property {function} isVoice Indicates whether this channel is voice-based.
+ * @property {function} send Sends a message to this channel.
+ * @property {function} sendTyping Sends a typing indicator in the channel.
+ * @property {function} toString When concatenated with a string, this automatically returns the recipient's mention instead of the DMChannel object.
+ */
+
+/**
  * @typedef {Object} Guild 
  * @description Represents a guild (or a server) on Discord. See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Guild DiscordJS}
  * @property {VoiceChannel} [afkChannel] AFK voice channel for this guild
