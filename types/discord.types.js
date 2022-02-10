@@ -212,6 +212,17 @@
  */
 
 /**
+ * @typedef {Object} GuildBan 
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/GuildBan DiscordJS}
+ * @property {Client} client The client that instantiated this
+ * @property {Guild} guild The guild in which the ban is
+ * @property {boolean} partial Whether this GuildBan is partial. If the reason is not provided the value is null
+ * @property {string} [reason] The reason for the ban
+ * @property {User} user The user this ban applies to
+ * @property {function} fetch Fetches this GuildBan.
+ */
+
+/**
  * @typedef {Object} Interaction 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
  * @property {Snowflake} applicationId The application's id
