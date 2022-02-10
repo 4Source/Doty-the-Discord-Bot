@@ -1,4 +1,6 @@
 const { io } = require('socket.io-client');
+const { Client } = require('../../types/discord.types')
+
 /**
  * Class to create a WebSocketClient object
  */
@@ -12,8 +14,7 @@ class WebSocketClient {
     }
 
     /**
-     * @property {Function} onEvents Register to some Events
-     * @returns {void}
+     * Register to some Events
      */
     onEvents() {
         this.socket.on('update', (data) => {
@@ -24,10 +25,10 @@ class WebSocketClient {
     /**
      * Register new to new Event.
      * @param {string} ev The Event Name
-     * @param {callbackFuction} callback The Callback that handles the Event
+     * @param {function} callback The Callback that handles the Event
      */
     on(ev, callback) {
-        this.socket.on(ev, callback);
+        this.socket.on(ev, callback());
     }
     /**
      * @typedef {Object} GuildConfig
@@ -37,9 +38,9 @@ class WebSocketClient {
      */
     /**
      * 
-     * @param {*} client Takes the Client Object
+     * @param {Client} client Takes the Client Object
      * @param {GuildConfig} guild Takes the {@link GuildConfig} object
-     * @returns 
+     * @returns {undefined}
      */
     onGuild(client, guild) {
         if(!guild || !client) return;

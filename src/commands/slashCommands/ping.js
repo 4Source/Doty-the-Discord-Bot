@@ -10,6 +10,6 @@ module.exports = {
         const args = [''];
         const client = interaction.client;
         
-        ping(interaction, args, client)
+        interaction.reply({ embeds: [ping(client)]});
     }
 }

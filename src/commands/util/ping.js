@@ -1,18 +1,17 @@
+const { MessageEmbed } = require('discord.js');
+const { Interaction, Message, Client } = require('../../../types/discord.types')
 
 /**
- * @typedef {import('../../../types/discord.types').Interaction} Interaction
- * @typedef {import('../../../types/discord.types').Message} Message
- * @typedef {import('../../../types/discord.types').Client} Client
- */
-
-/**
- * 
- * @param {Interaction|Message} message 
- * @param {Array<string>} args 
+ * @memberof Commands
  * @param {Client} client 
+ * @returns {MessageEmbed}
  */
-const ping = (message, args, client) => {
-    message.reply(`Ping: ${client.ws.ping}ms.`);
+const ping = (client) => {            
+    return new MessageEmbed()
+    .setColor('BLUE')
+    .setTimestamp()
+    .setTitle('Ping')
+    .setDescription(`${client.ws.ping}ms`);  
 };
 
 module.exports = ping;

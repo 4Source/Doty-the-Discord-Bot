@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const ping = require('../util/ping');
 
 module.exports = {
@@ -7,6 +6,6 @@ module.exports = {
     
     async execute(message, args, client) {
         //message.reply(`Ping: ${client.ws.ping}ms.`);
-        ping(message, args, client);
+        message.reply({ embeds: [ping(client)]});
     }
 };
