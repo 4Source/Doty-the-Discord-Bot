@@ -99,6 +99,10 @@
  */
 
 /**
+ * @typedef {string} Snowflake See Original {@link https://discord.js.org/#/docs/discord.js/stable/typedef/Snowflake DiscordJS}
+ */
+
+/**
  * @typedef {Object} User 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/User DiscordJS}
  * @property {number} [accentColor] The base 10 accent color of the user's banner
