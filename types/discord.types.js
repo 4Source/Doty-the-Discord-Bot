@@ -1,4 +1,106 @@
 /**
+ * @typedef {object} Client 
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Client DiscordJS}
+ * @property {*} [application] The application of this bot
+ * @property {*} channels All of the Channels that the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every channel in every guild the bot is a member of. Note that DM channels will not be initially cached, and thus not be present in the Manager without their explicit fetching or use.
+ * @property {*} emojis All custom emojis that the client has access to, mapped by their ids
+ * @property {*} guilds All of the guilds the client is currently handling, mapped by their ids - as long as sharding isn't being used, this will be every guild the bot is a member of
+ * @property {*} options The options the client was instantiated with
+ * @property {Date} [readyAt] Time at which the client was last regarded as being in the READY state (each time the client disconnects and successfully reconnects, this will be overwritten)
+ * @property {number} [readyTimestamp] Timestamp of the time the client was last READY at
+ * @property {*} [shard] Shard helpers for the client (only if the process was spawned from a ShardingManager)
+ * @property {*} sweepers The sweeping functions and their intervals used to periodically sweep caches
+ * @property {string} [token] Authorization token for the logged in bot. If present, this defaults to process.env.DISCORD_TOKEN when instantiating the client
+ * @property {number} [uptime] How long it has been since the client last entered the READY state in milliseconds
+ * @property {*} [user] User that the client is logged in as
+ * @property {*} users All of the User objects that have been cached at any point, mapped by their ids
+ * @property {*} voice The voice manager of the client
+ * @property {*} ws The WebSocket manager of the client
+ * @property {function} destroy Logs out, terminates the connection to Discord, and destroys the client.
+ * @property {function} fetchGuildPreview Obtains a guild preview from Discord, available for all guilds the bot is in and all Discoverable guilds.
+ * @property {function} fetchGuildTemplate Obtains a template from Discord.
+ * @property {function} fetchGuildWidget Obtains the widget data of a guild from Discord, available for guilds with the widget enabled.
+ * @property {function} fetchInvite Obtains an invite from Discord.
+ * @property {function} fetchPremiumStickerPacks Obtains the list of sticker packs available to Nitro subscribers from Discord.
+ * @property {function} fetchSticker Obtains a sticker from Discord.
+ * @property {function} fetchVoiceRegions Obtains the available voice regions from Discord.
+ * @property {function} fetchWebhook Obtains a webhook from Discord.
+ * @property {function} generateInvite Generates a link that can be used to invite the bot to a guild.
+ * @property {function} isReady Returns whether the client has logged in, indicative of being able to access properties such as user and application.
+ * @property {function} login Logs the client in, establishing a WebSocket connection to Discord.
+ * @property {function} sweepMessages Sweeps all text-based channels' messages and removes the ones older than the max message lifetime. If the message has been edited, the time of the edit is used rather than the time of the original message.
+ * @property {event} apiRequest Emitted before every API request. This event can emit several times for the same request, e.g. when hitting a rate limit.
+ * @property {event} apiResponse Emitted after every API request has received a response. This event does not necessarily correlate to completion of the request, e.g. when hitting a rate limit.
+ * @property {event} channelCreate Emitted whenever a guild channel is created.
+ * @property {event} channelDelete Emitted whenever a channel is deleted.
+ * @property {event} channelPinsUpdate Emitted whenever the pins of a channel are updated. Due to the nature of the WebSocket event, not much information can be provided easily here - you need to manually check the pins yourself.
+ * @property {event} channelUpdate Emitted whenever a channel is updated - e.g. name change, topic change, channel type change.
+ * @property {event} debug Emitted for general debugging information.
+ * @property {event} emojiCreate Emitted whenever a custom emoji is created in a guild.
+ * @property {event} emojiDelete Emitted whenever a custom emoji is deleted in a guild.
+ * @property {event} emojiUpdate Emitted whenever a custom emoji is updated in a guild.
+ * @property {event} error Emitted when the client encounters an error.
+ * @property {event} guildBanAdd Emitted whenever a member is banned from a guild.
+ * @property {event} guildBanRemove Emitted whenever a member is unbanned from a guild.
+ * @property {event} guildCreate Emitted whenever the client joins a guild.
+ * @property {event} guildDelete Emitted whenever a guild kicks the client or the guild is deleted/left.
+ * @property {event} guildIntegrationsUpdate Emitted whenever a guild integration is updated
+ * @property {event} guildMemberAdd Emitted whenever a user joins a guild.
+ * @property {event} guildMemberAvailable Emitted whenever a member becomes available in a large guild.
+ * @property {event} guildMemberRemove Emitted whenever a member leaves a guild, or is kicked.
+ * @property {event} guildMembersChunk Emitted whenever a chunk of guild members is received (all members come from the same guild).
+ * @property {event} guildMemberUpdate Emitted whenever a guild member changes - i.e. new role, removed role, nickname.
+ * @property {event} guildScheduledEventCreate Emitted whenever a guild scheduled event is created.
+ * @property {event} guildScheduledEventDelete Emitted whenever a guild scheduled event is deleted.
+ * @property {event} guildScheduledEventUpdate Emitted whenever a guild scheduled event gets updated.
+ * @property {event} guildScheduledEventUserAdd Emitted whenever a user subscribes to a guild scheduled event
+ * @property {event} guildScheduledEventUserRemove Emitted whenever a user unsubscribes from a guild scheduled event
+ * @property {event} guildUnavailable Emitted whenever a guild becomes unavailable, likely due to a server outage.
+ * @property {event} guildUpdate Emitted whenever a guild is updated - e.g. name change.
+ * @property {event} interactionCreate Emitted when an interaction is created.
+ * @property {event} invalidated Emitted when the client's session becomes invalidated. You are expected to handle closing the process gracefully and preventing a boot loop if you are listening to this event.
+ * @property {event} invalidRequestWarning Emitted periodically when the process sends invalid requests to let users avoid the 10k invalid requests in 10 minutes threshold that causes a ban
+ * @property {event} inviteCreate Emitted when an invite is created.
+ * @property {event} inviteDelete Emitted when an invite is deleted.
+ * @property {event} messageCreate Emitted whenever a message is created.
+ * @property {event} messageDelete Emitted whenever a message is deleted.
+ * @property {event} messageDeleteBulk Emitted whenever messages are deleted in bulk.
+ * @property {event} messageReactionAdd Emitted whenever a reaction is added to a cached message.
+ * @property {event} messageReactionRemove Emitted whenever a reaction is removed from a cached message.
+ * @property {event} messageReactionRemoveAll Emitted whenever all reactions are removed from a cached message.
+ * @property {event} messageReactionRemoveEmoji Emitted when a bot removes an emoji reaction from a cached message.
+ * @property {event} messageUpdate Emitted whenever a message is updated - e.g. embed or content change.
+ * @property {event} presenceUpdate Emitted whenever a guild member's presence (e.g. status, activity) is changed.
+ * @property {event} rateLimit Emitted when the client hits a rate limit while making a request
+ * @property {event} ready Emitted when the client becomes ready to start working.
+ * @property {event} roleCreate Emitted whenever a role is created.
+ * @property {event} roleDelete Emitted whenever a guild role is deleted.
+ * @property {event} roleUpdate Emitted whenever a guild role is updated.
+ * @property {event} shardDisconnect Emitted when a shard's WebSocket disconnects and will no longer reconnect.
+ * @property {event} shardError Emitted whenever a shard's WebSocket encounters a connection error.
+ * @property {event} shardReady Emitted when a shard turns ready.
+ * @property {event} shardReconnecting Emitted when a shard is attempting to reconnect or re-identify.
+ * @property {event} shardResume Emitted when a shard resumes successfully.
+ * @property {event} stageInstanceCreate Emitted whenever a stage instance is created.
+ * @property {event} stageInstanceDelete Emitted whenever a stage instance is deleted.
+ * @property {event} stageInstanceUpdate Emitted whenever a stage instance gets updated - e.g. change in topic or privacy level
+ * @property {event} stickerCreate Emitted whenever a custom sticker is created in a guild.
+ * @property {event} stickerDelete Emitted whenever a custom sticker is deleted in a guild.
+ * @property {event} stickerUpdate Emitted whenever a custom sticker is updated in a guild.
+ * @property {event} threadCreate Emitted whenever a thread is created or when the client user is added to a thread.
+ * @property {event} threadDelete Emitted whenever a thread is deleted.
+ * @property {event} threadListSync Emitted whenever the client user gains access to a text or news channel that contains threads
+ * @property {event} threadMembersUpdate Emitted whenever members are added or removed from a thread. Requires GUILD_MEMBERS privileged intent
+ * @property {event} threadMemberUpdate Emitted whenever the client user's thread member is updated.
+ * @property {event} threadUpdate Emitted whenever a thread is updated - e.g. name change, archive state change, locked state change.
+ * @property {event} typingStart Emitted whenever a user starts typing in a channel.
+ * @property {event} userUpdate Emitted whenever a user's details (e.g. username) are changed. Triggered by the Discord gateway events USER_UPDATE, GUILD_MEMBER_UPDATE, and PRESENCE_UPDATE.
+ * @property {event} voiceStateUpdate Emitted whenever a member changes voice state - e.g. joins/leaves a channel, mutes/unmutes.
+ * @property {event} warn Emitted for general warnings.
+ * @property {event} webhookUpdate Emitted whenever a channel has its webhooks changed.
+ */
+
+/**
  * @typedef {Object} Interaction 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
  * @property {Snowflake} applicationId The application's id
