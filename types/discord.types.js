@@ -98,4 +98,37 @@
  * @property {function} unpin Unpins this message from the channel's pinned messages.
  */
 
+/**
+ * @typedef {Object} User 
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/User DiscordJS}
+ * @property {number} [accentColor] The base 10 accent color of the user's banner
+ * @property {string} [avatar] The user avatar's hash
+ * @property {string} [banner] The user banner's hash
+ * @property {boolean} [bot] Whether or not the user is a bot
+ * @property {Client} client The client that instantiated this
+ * @property {Date} createdAt The time the user was created at
+ * @property {number} createdTimestamp The timestamp the user was created at
+ * @property {string} defaultAvatarURL A link to the user's default avatar
+ * @property {string} [discriminator] A discriminator based on username for the user
+ * @property {*} [dmChannel] The DM between the client's user and this user
+ * @property {*} [flags] The flags for this user
+ * @property {string} [hexAccentColor] The hexadecimal version of the user accent color, with a leading hash
+ * @property {Snowflake} id The user's id
+ * @property {boolean} partial Whether this User is a partial
+ * @property {boolean} [system] Whether the user is an Official Discord System user (part of the urgent message system)
+ * @property {string} [tag] The Discord Tag for this user
+ * @property {string} [username] The username of the user
+ * @property {function} avatarURL A link to the user's avatar.
+ * @property {function} bannerURL A link to the user's banner.
+ * @property {function} createDM Creates a DM channel between the client and the user.
+ * @property {function} deleteDM Deletes a DM channel (if one exists) between the client and the user. Resolves with the channel if successful.
+ * @property {function} displayAvatarURL A link to the user's avatar if they have one. Otherwise a link to their default avatar will be returned.
+ * @property {function} equals Checks if the user is equal to another. It compares id, username, discriminator, avatar, banner, accent color, and bot flags. It is recommended to compare equality by using user.id === user2.id unless you want to compare all properties.
+ * @property {function} fetch Fetches this user.
+ * @property {function} fetchFlags Fetches this user's flags.
+ * @property {function} send Sends a message to this channel.
+ * @property {function} toString When concatenated with a string, this automatically returns the user's mention instead of the User object.
+ */
+
+
  module.exports.unused = {};
