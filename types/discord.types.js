@@ -101,6 +101,117 @@
  */
 
 /**
+ * @typedef {Object} Guild 
+ * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Guild DiscordJS}
+ * @property {*} [afkChannel] AFK voice channel for this guild
+ * @property {Snowflake} [afkChannelId] The id of the voice channel where AFK members are moved
+ * @property {number} [afkTimeout] The time in seconds before a user is counted as "away from keyboard"
+ * @property {Snowflake} [applicationId] The id of the application that created this guild (if applicable)
+ * @property {number} [approximateMemberCount] The approximate amount of members the guild has
+ * @property {number} [approximatePresenceCount] The approximate amount of presences the guild has
+ * @property {boolean} available Whether the guild is available to access. If it is not available, it indicates a server outage
+ * @property {string} [banner] The hash of the guild banner
+ * @property {*} bans A manager of the bans belonging to this guild
+ * @property {*} channels A manager of the channels belonging to this guild
+ * @property {Client} client The client that instantiated this
+ * @property {*} commands A manager of the application commands belonging to this guild
+ * @property {Date} createdAt The time this guild was created at
+ * @property {number} createdTimestamp The timestamp this guild was created at
+ * @property {*} defaultMessageNotifications The default message notification level of the guild
+ * @property {string} [description] The description of the guild, if any
+ * @property {string} [discoverySplash] The hash of the guild discovery splash image
+ * @property {*} emojis A manager of the emojis belonging to this guild
+ * @property {*} explicitContentFilter The explicit content filter level of the guild
+ * @property {*} features An array of features available to this guild
+ * @property {string} [icon] The icon hash of this guild
+ * @property {Snowflake} id The guild's id
+ * @property {*} invites A manager of the invites of this guild
+ * @property {Date} joinedAt The time the client user joined the guild
+ * @property {number} joinedTimestamp The timestamp the client user joined the guild at
+ * @property {boolean} large Whether the guild is "large" (has more than large_threshold members, 50 by default)
+ * @property {number} maximumBitrate The maximum bitrate available for this guild
+ * @property {number} [maximumMembers] The maximum amount of members the guild can have
+ * @property {number} [maximumPresences] The maximum amount of presences the guild can have
+ * @property {*} [me] The client user as a GuildMember of this guild
+ * @property {number} memberCount The full amount of members in this guild
+ * @property {*} members A manager of the members belonging to this guild
+ * @property {*} mfaLevel The required MFA level for this guild
+ * @property {string} name The name of this guild
+ * @property {string} nameAcronym The acronym that shows up in place of a guild icon
+ * @property {*} nsfwLevel The NSFW level of this guild
+ * @property {Snowflake} ownerId The user id of this guild's owner
+ * @property {boolean} partnered Whether this guild is partnered
+ * @property {string} preferredLocale The preferred locale of the guild, defaults to en-US
+ * @property {boolean} premiumProgressBarEnabled Whether this guild has its premium (boost) progress bar enabled
+ * @property {number} [premiumSubscriptionCount] The total number of boosts for this server
+ * @property {*} premiumTier The premium tier of this guild
+ * @property {*} presences A manager of the presences belonging to this guild
+ * @property {*} [publicUpdatesChannel] Public updates channel for this guild
+ * @property {Snowflake} [publicUpdatesChannelId] The community updates channel's id for the guild
+ * @property {*} roles A manager of the roles belonging to this guild
+ * @property {*} [rulesChannel] Rules channel for this guild
+ * @property {Snowflake} [rulesChannelId] The rules channel's id for the guild
+ * @property {*} scheduledEvents A manager of the scheduled events of this guild
+ * @property {*} shard The Shard this Guild belongs to.
+ * @property {number} shardId The id of the shard this Guild belongs to.
+ * @property {string} [splash] The hash of the guild invite splash image
+ * @property {*} stageInstances A manager of the stage instances of this guild
+ * @property {*} stickers A manager of the stickers belonging to this guild
+ * @property {*} [systemChannel] System channel for this guild
+ * @property {*} systemChannelFlags The value set for the guild's system channel flags
+ * @property {Snowflake} [systemChannelId] The system channel's id
+ * @property {string} [vanityURLCode] The vanity invite code of the guild, if any
+ * @property {number} [vanityURLUses] The use count of the vanity URL code of the guild, if any
+ * @property {*} verificationLevel The verification level of the guild
+ * @property {boolean} verified Whether this guild is verified
+ * @property {function} voiceAdapterCreator The voice state adapter for this guild that can be used with @discordjs/voice to play audio in voice and stage channels.
+ * @property {*} voiceStates A manager of the voice states of this guild
+ * @property {*} [widgetChannel] Widget channel for this guild
+ * @property {string} [widgetChannelId] The widget channel's id, if enabled
+ * @property {boolean} [widgetEnabled] Whether widget images are enabled on this guild
+ * @property {function} bannerURL The URL to this guild's banner.
+ * @property {function} createTemplate Creates a template for the guild.
+ * @property {function} delete Deletes the guild.
+ * @property {function} discoverySplashURL The URL to this guild's discovery splash image.
+ * @property {function} edit Updates the guild with new information - e.g. a new name.
+ * @property {function} editWelcomeScreen Updates the guild's welcome screen
+ * @property {function} equals Whether this guild equals another guild. It compares all properties, so for most operations it is advisable to just compare guild.id === guild2.id as it is much faster and is often what most users need.
+ * @property {function} fetch Fetches this guild.
+ * @property {function} fetchAuditLogs Fetches audit logs for this guild.
+ * @property {function} fetchIntegrations Fetches a collection of integrations to this guild. Resolves with a collection mapping integrations by their ids.
+ * @property {function} fetchOwner Fetches the owner of the guild. If the member object isn't needed, use Guild#ownerId instead.
+ * @property {function} fetchPreview Obtains a guild preview for this guild from Discord.
+ * @property {function} fetchTemplates Fetches a collection of templates from this guild. Resolves with a collection mapping templates by their codes.
+ * @property {function} fetchVanityData Fetches the vanity URL invite object to this guild. Resolves with an object containing the vanity URL invite code and the use count
+ * @property {function} fetchWebhooks Fetches all webhooks for the guild.
+ * @property {function} fetchWelcomeScreen Fetches the welcome screen for this guild.
+ * @property {function} fetchWidget Fetches the guild widget data, requires the widget to be enabled.
+ * @property {function} fetchWidgetSettings Fetches the guild widget settings.
+ * @property {function} iconURL The URL to this guild's icon.
+ * @property {function} leave Leaves the guild.
+ * @property {function} setAFKChannel Edits the AFK channel of the guild.
+ * @property {function} setAFKTimeout Edits the AFK timeout of the guild.
+ * @property {function} setBanner Sets a new guild banner.
+ * @property {function} setDefaultMessageNotifications Edits the setting of the default message notifications of the guild.
+ * @property {function} setDiscoverySplash Sets a new guild discovery splash image.
+ * @property {function} setExplicitContentFilter Edits the level of the explicit content filter.
+ * @property {function} setIcon Sets a new guild icon.
+ * @property {function} setName Edits the name of the guild.
+ * @property {function} setOwner Sets a new owner of the guild.
+ * @property {function} setPreferredLocale Edits the preferred locale of the guild.
+ * @property {function} setPremiumProgressBarEnabled Edits the enabled state of the guild's premium progress bar
+ * @property {function} setPublicUpdatesChannel Edits the community updates channel of the guild.
+ * @property {function} setRulesChannel Edits the rules channel of the guild.
+ * @property {function} setSplash Sets a new guild invite splash image.
+ * @property {function} setSystemChannel Edits the system channel of the guild.
+ * @property {function} setSystemChannelFlags Edits the flags of the default message notifications of the guild.
+ * @property {function} setVerificationLevel Edits the verification level of the guild.
+ * @property {function} setWidgetSettings Edits the guild's widget settings.
+ * @property {function} splashURL The URL to this guild's invite splash image.
+ * @property {function} toString When concatenated with a string, this automatically returns the guild's name instead of the Guild object.
+ */
+
+/**
  * @typedef {Object} Interaction 
  * @description See Original {@link https://discord.js.org/#/docs/discord.js/stable/class/Interaction DiscordJS}
  * @property {Snowflake} applicationId The application's id
