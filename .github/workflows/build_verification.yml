@@ -9,9 +9,6 @@ on:
 
 jobs:
   build:
-    env:
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,4 +23,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: node src/index.js 
+    - name: create env file
+      run: |
+        touch .env
+        echo BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+        echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .env
+    - run: node -r dotenv/config src/index.js
