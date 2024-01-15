@@ -23,8 +23,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      env: # Or as an environment variable
+      env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
     - run: npm ci
-    - run: node src/index.js
+    - run: node src/index.js "$env:BOT_TOKEN" "$env:CLIENT_ID"
