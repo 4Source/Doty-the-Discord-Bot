@@ -1,0 +1,26 @@
+{
+  "name": "doty-the-discord-bot",
+  "version": "0.0.0",
+  "description": "Discord bot Doty",
+  "main": "src/index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
+    "deploy": "node -r dotenv/config src/deploy-commands.js",
+    "start": "node -r dotenv/config src/index.js",
+    "start:dev": "nodemon -r dotenv/config src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4Source/Doty-the-Discord-Bot.git"
+  },
+  "author": "4Source",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/4Source/Doty-the-Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/4Source/Doty-the-Discord-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  }
+}
