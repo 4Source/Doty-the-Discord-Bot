@@ -9,7 +9,9 @@ on:
 
 jobs:
   build:
-
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,8 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
     - run: npm ci
     - run: node src/index.js 
