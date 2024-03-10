@@ -1,0 +1,39 @@
+name: Continuous Integration
+
+on: 
+  pull_request:
+    branches:
+      - master
+    paths: 
+      - 'src/**'
+  push: 
+    branches:
+      - master
+    paths: 
+      - 'src/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository 
+      uses: actions/checkout@v4
+
+    - name: Use Node.js "18.x"
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18.x"
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
+    # - run: node -r dotenv/config src/index.js
+    #   env:
+    #     BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+    #     CLIENT_ID: ${{ secrets.CLIENT_ID }}
+    #     DEV_GUILD_ID: ${{ secrets.DEV_GUILD_ID }}
+
+
