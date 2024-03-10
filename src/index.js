@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 
-console.log("Starting...");
+console.log('Starting...');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -23,8 +23,9 @@ for (const folder of commandFolders) {
 		// Set a new item in the Collection with the key as the command name and the value as the exported module
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		}
+		else {
+			console.log(`[WARNING] The command at ${filePath} is missing a required 'data' or 'execute' property.`);
 		}
 	}
 }
@@ -42,11 +43,13 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	try {
 		await command.execute(client, interaction);
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-		} else {
+		}
+		else {
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	}
@@ -57,5 +60,5 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-//Login with Discord Token
+// Login with Discord Token
 client.login(process.env.BOT_TOKEN);
